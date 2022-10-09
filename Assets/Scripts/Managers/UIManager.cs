@@ -71,7 +71,7 @@ namespace Managers
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
             CoreGameSignals.Instance.onReset?.Invoke();
-            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.PlayerTurn);
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameOpen);
         }
         private void OnOpenPanel(UIPanels panel)
         {

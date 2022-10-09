@@ -7,9 +7,7 @@ namespace Enums
     public enum GameStates
 
     {
-        PlayerTurn,
-        AtackTurn,
-        EnemyTurn,
-        MiniGameTurn
+        GameOpen,
+        Playing
     }
 }

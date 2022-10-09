@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOpen()
     {
-        CurrentState = GameStates.PlayerTurn;
+        CurrentState = GameStates.GameOpen;
         CoreGameSignals.Instance.onGameOpen?.Invoke();
     }
     private void GameClose()
