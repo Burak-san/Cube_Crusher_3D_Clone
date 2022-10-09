@@ -38,7 +38,7 @@ namespace Controllers
                     Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                         Camera.main.WorldToScreenPoint(_selectedObject.transform.position).z);
                     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                    _selectedObject.transform.position = new Vector3(worldPosition.x, 1.5f, worldPosition.z);
+                    _selectedObject.transform.position = new Vector3(worldPosition.x, 1, worldPosition.z);
                     _selectedObject = null;
                     Cursor.visible = true;
                 }
@@ -50,7 +50,7 @@ namespace Controllers
                 Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                     Camera.main.WorldToScreenPoint(_selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                _selectedObject.transform.position = new Vector3(worldPosition.x, 2, worldPosition.z);
+                _selectedObject.transform.position = new Vector3(worldPosition.x, 1.5f, worldPosition.z);
             }
         }
 
