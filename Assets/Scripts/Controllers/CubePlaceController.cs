@@ -4,11 +4,16 @@ using UnityEngine.PlayerLoop;
 
 namespace Controllers
 {
-    public class Grabber : MonoBehaviour
+    public class CubePlaceController : MonoBehaviour
     {
         private GameObject _selectedObject;
 
         private void Update()
+        {
+            ObjectHoldAndGrab();
+        }
+
+        private void ObjectHoldAndGrab()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -33,7 +38,7 @@ namespace Controllers
                     Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                         Camera.main.WorldToScreenPoint(_selectedObject.transform.position).z);
                     Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                    _selectedObject.transform.position = new Vector3(worldPosition.x, 0.5f, worldPosition.z);
+                    _selectedObject.transform.position = new Vector3(worldPosition.x, 1.5f, worldPosition.z);
                     _selectedObject = null;
                     Cursor.visible = true;
                 }
@@ -45,7 +50,7 @@ namespace Controllers
                 Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                     Camera.main.WorldToScreenPoint(_selectedObject.transform.position).z);
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(position);
-                _selectedObject.transform.position = new Vector3(worldPosition.x, 1, worldPosition.z);
+                _selectedObject.transform.position = new Vector3(worldPosition.x, 2, worldPosition.z);
             }
         }
 
