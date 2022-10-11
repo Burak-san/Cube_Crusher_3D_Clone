@@ -22,13 +22,14 @@ namespace Managers
         [SerializeField]private int width;
     
         [SerializeField]private Transform cellHolder;
+        
 
         #endregion
 
         #region Private Variables
 
-        private NodeManager[,] _nodes;
-
+        public NodeManager[,] _nodes;
+        
         #endregion
 
         #endregion
@@ -52,10 +53,8 @@ namespace Managers
                 }
             }
         }
-
-        // public NodeManager GetGridNode(int x, int y)
-        // {
-        //     return _nodes[x, y];
-        // }
+        
+        
+        
     }
 }

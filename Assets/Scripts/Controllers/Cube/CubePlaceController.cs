@@ -7,6 +7,7 @@ namespace Controllers
     public class CubePlaceController : MonoBehaviour
     {
         private GameObject _selectedObject;
+        private CubeTile _cubeTile;
 
         private void Update()
         {

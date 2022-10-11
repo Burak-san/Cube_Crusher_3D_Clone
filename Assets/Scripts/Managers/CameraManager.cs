@@ -82,8 +82,8 @@ namespace Managers
         {
             if (cameraCurrentState == CameraStatesType.GameOpen)
             {
-                StateCam.Follow = gameBoard.transform;
-                StateCam.LookAt = null;
+                StateCam.Follow = null;
+                StateCam.LookAt = gameBoard.transform;
                 lookCinemachineAxis.enabled = true;
             }
             else
