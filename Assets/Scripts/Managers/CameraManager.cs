@@ -12,9 +12,6 @@ namespace Managers
     public class CameraManager : MonoBehaviour
     {
         public CinemachineStateDrivenCamera StateCam;
-       
-        [SerializeField] private LookCinemachineAxis lookCinemachineAxis;
-        [SerializeField] private GameObject gameBoard;
 
         [ShowInInspector] private Vector3 _initialPosition;
         private Animator _animator;
@@ -75,23 +72,23 @@ namespace Managers
 
         private void OnPlay()
         {
-            SetCameraTarget(CameraStatesType.GameOpen);
+            SetCameraTarget(CameraStatesType.Playing);
         }
         
         private void SetCameraTarget(CameraStatesType cameraCurrentState)
         {
-            if (cameraCurrentState == CameraStatesType.GameOpen)
-            {
-                StateCam.Follow = null;
-                StateCam.LookAt = gameBoard.transform;
-                lookCinemachineAxis.enabled = true;
-            }
-            else
-            {
-                StateCam.LookAt = gameBoard.transform;
-                lookCinemachineAxis.enabled = false;
-            }
+            // if (cameraCurrentState == CameraStatesType.GameOpen)
+            // {
+            //     //StateCam.LookAt = gameBoard.transform;
+            //     lookCinemachineAxis.enabled = true;
+            // }
+            // else
+            // {
+            //     //StateCam.LookAt = gameBoard.transform;
+            //     lookCinemachineAxis.enabled = false;
+            // }
             _animator.Play(cameraCurrentState.ToString());
+            Debug.Log(cameraCurrentState.ToString());
         }
 
         private void OnChangeGameState(GameStates currentGameStates)

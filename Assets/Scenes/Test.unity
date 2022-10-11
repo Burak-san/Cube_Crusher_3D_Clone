@@ -1228,7 +1228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -600, y: 1384.0001}
+  m_AnchoredPosition: {x: -509, y: 1384.0001}
   m_SizeDelta: {x: 450, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485432378
@@ -2112,8 +2112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlaceable: 0
-  CellIndex: {x: 0, y: 0}
-  HeldCube: {fileID: 0}
+  CellPosition: {x: 0, y: 0, z: 0}
+  Obj: {fileID: 0}
+  TileIndex: 0
+  HoldCube: {fileID: 0}
   OffSetVector: {x: 0, y: 0, z: 0}
 --- !u!1001 &774305433
 PrefabInstance:
@@ -2401,11 +2403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2212d30f397243af6ca7e8ec84792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  smoothMousePosition: {x: 0, y: 0, z: 0}
-  IsOnGrid: 0
 --- !u!1001 &1047398143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3447,7 +3444,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1384.0001}
+  m_AnchoredPosition: {x: 73, y: 1384.0001}
   m_SizeDelta: {x: 450, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1471936243
@@ -3839,7 +3836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efa92be532750f43973a07aa83d88f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridCellPrefab: {fileID: 4687457291424914993, guid: 702df3e82f5cafb4fb56ec391142cebc, type: 3}
+  GridCellPrefab: {fileID: 63869916583392946, guid: 702df3e82f5cafb4fb56ec391142cebc, type: 3}
   height: 4
   width: 5
   cellHolder: {fileID: 408210783}
@@ -4717,11 +4714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2212d30f397243af6ca7e8ec84792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mergeLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  smoothMousePosition: {x: 0, y: 0, z: 0}
-  IsOnGrid: 0
 --- !u!1001 &1882559678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4877,7 +4869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 600, y: 1384.0001}
+  m_AnchoredPosition: {x: 654, y: 1384.0001}
   m_SizeDelta: {x: 450, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1892241836

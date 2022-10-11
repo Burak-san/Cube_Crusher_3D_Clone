@@ -11,7 +11,7 @@ namespace Managers
 
         #region Public Variables
 
-        public Transform GridCellPrefab;
+        public Tile GridCellPrefab;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace Managers
 
         #region Private Variables
 
-        public NodeManager[,] _nodes;
+        public Tile[,] _nodes;
         
         #endregion
 
@@ -40,16 +40,23 @@ namespace Managers
         }
         private void CreateGrid()
         {
-            _nodes = new NodeManager[height, width];
+            _nodes = new Tile[height, width];
             for (int z = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     Vector3 worldPosition = new Vector3(x, 0, z);
-                    Transform obj = Instantiate(GridCellPrefab, worldPosition, Quaternion.identity);
-                    obj.name = $"Cell {z} {x}";
-                    obj.SetParent(cellHolder);
-                    _nodes[z, x] = new NodeManager(true, worldPosition, obj);
+                    
+                    Tile newTile = Instantiate(GridCellPrefab, worldPosition, Quaternion.identity);
+                    newTile.name =  $"Cell {z} {x}";
+                    newTile.transform.SetParent(cellHolder);
+                    newTile.Init(true, new Vector2(z,x));
+                    _nodes[z, x] = newTile;
+                    
+                    // Transform obj = Instantiate(GridCellPrefab, worldPosition, Quaternion.identity);
+                    // obj.name = $"Cell {z} {x}";
+                    // obj.SetParent(cellHolder);
+                    // _nodes[z, x] = new Tile(true, worldPosition, obj);
                 }
             }
         }
