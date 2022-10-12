@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 63869916583392946}
   - component: {fileID: 4687457291424914993}
-  m_Layer: 0
+  - component: {fileID: 8899758507168406981}
+  m_Layer: 6
   m_Name: CubeBaseSide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,11 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlaceable: 0
-  CellPosition: {x: 0, y: 0, z: 0}
-  Obj: {fileID: 0}
-  TileIndex: 0
-  HoldCube: {fileID: 0}
+  CellIndex: {x: 0, y: 0}
+  HeldCube: {fileID: 0}
   OffSetVector: {x: 0, y: 0, z: 0}
+--- !u!65 &8899758507168406981
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3734200773324271563}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1001 &6667914277657656602
 PrefabInstance:
   m_ObjectHideFlags: 0

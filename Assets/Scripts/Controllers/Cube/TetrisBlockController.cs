@@ -1,14 +1,12 @@
 ﻿using System;
-using Data;
 using Managers;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Controllers
 {
     public class TetrisBlockController : MonoBehaviour
     {
-        [SerializeField] private CubeTransform[] cubePositions;
+        [SerializeField] public CubeTransform[] cubePositions;
 
         private GridManager _gridManager;
         private bool isSelected = false;
@@ -18,7 +16,7 @@ namespace Controllers
             _gridManager = FindObjectOfType<GridManager>();
         }
 
-        private bool Check(Vector2 checkingTileIndex)
+        public bool Check(Vector2 checkingTileIndex)
         {
             foreach (CubeTransform cubeTransform in cubePositions)
             {

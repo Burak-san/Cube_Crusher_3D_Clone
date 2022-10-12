@@ -11,8 +11,6 @@ namespace Managers
         
         [SerializeField] public Vector3 OffSetVector;
 
-        //NODUN GRİD ÜZERİNDEKİ İNT DEĞERLERİ
-
         public void Init(bool isPlaceable, Vector2 cellIndex){
             this.IsPlaceable = isPlaceable;
             this.CellIndex = cellIndex;
