@@ -11,11 +11,11 @@ namespace Signals
     {
         public UnityAction onGameOpen = delegate {  };
         public UnityAction onGameClose = delegate {  };
-        public  UnityAction onPlay = delegate {  };
-        public  UnityAction<GameStates> onChangeGameState = delegate {  };
+        public UnityAction onPlay = delegate {  };
+        public UnityAction onTurnChanged = delegate {  };
+        public UnityAction<GameStates> onChangeGameState = delegate {  };
         public UnityAction onReset = delegate {  };
-        public  UnityAction onApplicationQuit = delegate {  };
-
+        public UnityAction onApplicationQuit = delegate {  };
     }
 }
 

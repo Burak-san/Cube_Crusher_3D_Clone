@@ -37,7 +37,7 @@ namespace Managers
         }
         private void CreateGrid()
         {
-            _nodes = new Tile[height, width];
+            _nodes = new Tile[width, height];
             for (int z = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
@@ -47,13 +47,10 @@ namespace Managers
                     Tile newTile = Instantiate(GridCellPrefab, worldPosition, Quaternion.identity);
                     newTile.name =  $"Cell {z} {x}";
                     newTile.transform.SetParent(cellHolder);
-                    newTile.Init(true, new Vector2(z,x));
-                    _nodes[z, x] = newTile;
+                    newTile.Init(true, new Vector2Int(x,z));
+                    _nodes[x, z] = newTile;
                 }
             }
         }
-        
-        
-        
     }
 }
