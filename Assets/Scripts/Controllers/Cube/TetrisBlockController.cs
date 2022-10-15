@@ -13,6 +13,7 @@ namespace Controllers
 
         private GridManager _gridManager;
         
+        List<int> fullRowIndexList = new List<int>();
         private void Awake()
         {
             _gridManager = FindObjectOfType<GridManager>();
@@ -65,8 +66,6 @@ namespace Controllers
 
         private List<int> CheckMerge()
         {
-            List<int> fullRowIndexList = new List<int>();
-            
             bool isRowFull = false;
 
             for (int y = 0; y < _gridManager._nodes.GetLength(1); y++)
@@ -89,7 +88,6 @@ namespace Controllers
 
                 if (isRowFull)
                     fullRowIndexList.Add(y);
-                
             }
             
             return fullRowIndexList;
@@ -97,26 +95,39 @@ namespace Controllers
 
         private void MergeRows()
         {
-            List<int> mergeIndexList = CheckMerge();
+            CheckMerge();
+            
+            if (fullRowIndexList.Count == 0) return;
 
-            if (mergeIndexList.Count == 0) 
+            for (var ındex = 0; ındex < fullRowIndexList.Count; ındex++)
             {
-                Debug.Log("There is no row to merge");
-                return;
-            }
-            else
-            {
-                Debug.Log("Merging layers");
-                foreach (int y in mergeIndexList)
-                    for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
-                    {
-                        _gridManager._nodes[x, y].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f);
-                    }
+                int index = fullRowIndexList[ındex];
+                
+                for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
+                {
+                    var x1 = x;
+                    _gridManager._nodes[x, index].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
+                        () =>
+                        {
+                            _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
+                            _gridManager._nodes[x1, index].IsPlaceable = true;
+                            Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
+                            _gridManager._nodes[x1, index].HeldCube = null;
+                        });
+                }
             }
         }
-
-        
     }
+    
+    // _gridManager._nodes[x, y].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
+    //     () =>
+    //     {
+    //                         
+    //         _gridManager.BaseCubeList[x].IncreaseCubeValue(_gridManager._nodes[x, y].HeldCube.CubeValue);
+    //         _gridManager._nodes[x, y].IsPlaceable = true;
+    //         Destroy(_gridManager._nodes[x, y].HeldCube);
+    //         _gridManager._nodes[x, y].HeldCube = null;
+    //     });
 
     [Serializable]
     public struct CubeTransform

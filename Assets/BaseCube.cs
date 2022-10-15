@@ -12,8 +12,9 @@ public class BaseCube : MonoBehaviour
         valueText.text = CubeValue.ToString();
     }
 
-    private void IncreaseCubeValue(int amount)
+    public void IncreaseCubeValue(int amount)
     {
         CubeValue += amount;
+        valueText.text = CubeValue.ToString();
     }
 }
