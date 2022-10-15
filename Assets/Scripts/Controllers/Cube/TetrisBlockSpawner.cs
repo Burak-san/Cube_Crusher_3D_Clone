@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Controllers.Cube
 {
@@ -15,6 +17,29 @@ namespace Controllers.Cube
             RandomSpawnBlock();
             Debug.Log(FindObjectOfType<LevelSignals>().gameObject.name);
         }
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onTetrisBlockPlace += RandomSpawnBlock;
+        }
+        
+        private void UnsubcribeEvents()
+        {
+            CoreGameSignals.Instance.onTetrisBlockPlace -= RandomSpawnBlock;
+        }
+
+
+        private void OnDisable()
+        {
+            UnsubcribeEvents();
+        }
+
+        
 
         [Button]
         private void RandomSpawnBlock()

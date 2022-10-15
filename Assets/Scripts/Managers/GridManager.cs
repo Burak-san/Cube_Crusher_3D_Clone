@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -19,7 +20,8 @@ namespace Managers
         [SerializeField]private int width;
     
         [SerializeField]private Transform cellHolder;
-        
+
+        [field: SerializeField] public List<BaseCube> BaseCubeList { get; set; }
 
         #endregion
 

@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
         CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
     }
 
-    
-
     private void UnsubscribeEvents()
     {
         CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;

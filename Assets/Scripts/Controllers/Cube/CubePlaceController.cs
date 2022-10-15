@@ -71,6 +71,10 @@ namespace Controllers
                         if (_selectedObject.Check(tile.CellIndex))
                         {
                             _selectedObject.Place(tile.CellIndex);
+                            //Check if can merge
+                            //Spawn stickmans
+                            //move enemy blok + spawn tetris blok
+                            //new enemy cubes
                         }
                         else
                         {
