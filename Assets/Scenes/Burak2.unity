@@ -3620,10 +3620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tetrisBlockList:
-  - {fileID: 3924518450688780436, guid: 0b1781c9b2fbbe7449821780a64d7afa, type: 3}
-  - {fileID: 460490059209855463, guid: 3e61287b800fba1498f0a8a71833d81b, type: 3}
-  - {fileID: 3924518450688780436, guid: 0b1781c9b2fbbe7449821780a64d7afa, type: 3}
-  - {fileID: 3924518450688780436, guid: 0b1781c9b2fbbe7449821780a64d7afa, type: 3}
+  - {fileID: 6350098094507525318, guid: a6b5f24ab7d6cff4380b4db4f29e65af, type: 3}
   - {fileID: 3924518450688780436, guid: 0b1781c9b2fbbe7449821780a64d7afa, type: 3}
 --- !u!1001 &1521410464
 PrefabInstance:
