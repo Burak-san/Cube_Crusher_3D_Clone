@@ -9,39 +9,51 @@ namespace Controllers
         [SerializeField] public CubeTransform[] cubePositions;
 
         private GridManager _gridManager;
-        private bool isSelected = false;
-
+        
         private void Awake()
         {
             _gridManager = FindObjectOfType<GridManager>();
         }
 
-        public bool Check(Vector2 checkingTileIndex)
+        public bool Check(Vector2Int checkingTileIndex)
         {
+            bool control = false;
+            
             foreach (CubeTransform cubeTransform in cubePositions)
             {
-                Tile checkingTile = _gridManager._nodes[
-                    (int)checkingTileIndex.x + cubeTransform.x,
-                    (int)checkingTileIndex.y + cubeTransform.y
-                ];
+                int xIndex = checkingTileIndex.x + cubeTransform.x;
+                int yIndex = checkingTileIndex.y + cubeTransform.y;
 
-                if (checkingTile.IsPlaceable) return true;
+                if (xIndex < 0 || 
+                    yIndex < 0 || 
+                    xIndex >= _gridManager._nodes.GetLength(0) || 
+                    yIndex >= _gridManager._nodes.GetLength(1)) return false;
+                
+                Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
+
+                control = checkingTile.IsPlaceable;
+                
+                if (control == false) return false;
             }
             
-            return false;
+            return true;
         }
 
-        public void Place(Vector2 checkingTile)
-        {
-            //place
-        }
-
-        public void RemoveCubesFromTiles()
+        public void Place(Vector2Int checkingTileIndex)
         {
             foreach (CubeTransform cubeTransform in cubePositions)
             {
-                _gridManager._nodes[cubeTransform.x, cubeTransform.y] = null;
+                int xIndex = checkingTileIndex.x + cubeTransform.x;
+                int yIndex = checkingTileIndex.y + cubeTransform.y;
+                
+                Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
+
+                checkingTile.HeldCube = cubeTransform.cube;
+                cubeTransform.cube.transform.SetParent(checkingTile.transform);
+                checkingTile.IsPlaceable = false;
+                checkingTile.SnapPoint();
             }
+            Destroy(gameObject);
         }
     }
 

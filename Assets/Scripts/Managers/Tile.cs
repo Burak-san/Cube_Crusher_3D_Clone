@@ -5,13 +5,13 @@ namespace Managers
     public class Tile : MonoBehaviour
     {
         public bool IsPlaceable;
-        public Vector2 CellIndex;
+        public Vector2Int CellIndex;
         
         public IncrementCubes HeldCube;
         
         [SerializeField] public Vector3 OffSetVector;
 
-        public void Init(bool isPlaceable, Vector2 cellIndex){
+        public void Init(bool isPlaceable, Vector2Int cellIndex){
             this.IsPlaceable = isPlaceable;
             this.CellIndex = cellIndex;
         }
