@@ -1,5 +1,7 @@
 using System;
+using Enums;
 using Managers;
+using Signals;
 using UnityEditor;
 using UnityEngine;
 
@@ -26,9 +28,6 @@ namespace Controllers
         {
             if (Input.GetMouseButtonDown(0))
                 SelectObject(mainCam.ScreenPointToRay(Input.mousePosition));
-
-            //TODO ECHOS: delete this after
-            Debug.DrawRay(mainCam.ScreenPointToRay(Input.mousePosition).origin, mainCam.ScreenPointToRay(Input.mousePosition).direction * mainCam.farClipPlane, Color.yellow);
             
             if (_selectedObject != null)
                 MoveObject();
@@ -45,7 +44,6 @@ namespace Controllers
                     _selectedObject = tbc;
                     pickedPosition = tbc.transform.position;
                 }
-
         }
         
         private void MoveObject()
@@ -62,7 +60,7 @@ namespace Controllers
             {
                 if (hitInfo.collider.TryGetComponent(out Tile tile))
                 {
-                    if (!tile.IsPlaceable) 
+                    if (!tile.IsPlaceable)
                     {
                         DropTetrisBlock();
                     }
@@ -71,10 +69,7 @@ namespace Controllers
                         if (_selectedObject.Check(tile.CellIndex))
                         {
                             _selectedObject.Place(tile.CellIndex);
-                            //Check if can merge
-                            //Spawn stickmans
-                            //move enemy blok + spawn tetris blok
-                            //new enemy cubes
+                            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.MergePhase);
                         }
                         else
                         {

@@ -77,18 +77,7 @@ namespace Managers
         
         private void SetCameraTarget(CameraStatesType cameraCurrentState)
         {
-            // if (cameraCurrentState == CameraStatesType.GameOpen)
-            // {
-            //     //StateCam.LookAt = gameBoard.transform;
-            //     lookCinemachineAxis.enabled = true;
-            // }
-            // else
-            // {
-            //     //StateCam.LookAt = gameBoard.transform;
-            //     lookCinemachineAxis.enabled = false;
-            // }
             _animator.Play(cameraCurrentState.ToString());
-            Debug.Log(cameraCurrentState.ToString());
         }
 
         private void OnChangeGameState(GameStates currentGameStates)
@@ -103,7 +92,6 @@ namespace Managers
                     _cameraStatesType = CameraStatesType.Playing;
                     SetCameraTarget(_cameraStatesType);
                     break;
-                    
             }
         }
 

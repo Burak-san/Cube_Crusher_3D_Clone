@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Enums;
 using Signals;
 using UnityEngine;
@@ -29,11 +26,13 @@ public class GameManager : MonoBehaviour
     private void SubscribeEvents()
     {
         CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
+        CoreGameSignals.Instance.onPlay += OnPlay; 
     }
 
     private void UnsubscribeEvents()
     {
         CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
+        CoreGameSignals.Instance.onPlay -= OnPlay;
     }
 
     private void OnDisable()
@@ -59,6 +58,12 @@ public class GameManager : MonoBehaviour
     
 
     #endregion
+    
+    private void OnPlay()
+    {
+        CurrentState = GameStates.GameOpen;
+    }
+    
     
 }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using Controllers.UI;
+﻿using Controllers.UI;
 using Enums;
 using Signals;
 using TMPro;
@@ -62,9 +61,17 @@ namespace Managers
         
         #endregion
 
+        private GameManager _gameManager;
+        
+        private void Awake()
+        {
+            _gameManager = FindObjectOfType<GameManager>();
+        }
+
         public void PlayButton()
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Playing);
         }
 
         public void RestartButton()
@@ -90,7 +97,7 @@ namespace Managers
         
         private void OnChangeGameState(GameStates currentState)
         {
-            //BURASI
+            
         }
         
         private void OnSetLevelText(int levelID)

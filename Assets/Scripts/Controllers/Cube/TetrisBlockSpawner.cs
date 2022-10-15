@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
+using Enums;
 using Signals;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,23 +24,25 @@ namespace Controllers.Cube
 
         private void SubscribeEvents()
         {
-            CoreGameSignals.Instance.onTetrisBlockPlace += RandomSpawnBlock;
+            CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
         }
         
-        private void UnsubcribeEvents()
+        private void UnsubscribeEvents()
         {
-            CoreGameSignals.Instance.onTetrisBlockPlace -= RandomSpawnBlock;
+            CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
         }
-
-
+        
         private void OnDisable()
         {
-            UnsubcribeEvents();
+            UnsubscribeEvents();
+        }
+        
+        private void OnChangeGameState(GameStates currentState)
+        {
+            if (currentState == GameStates.EnemyMovePhase)
+                RandomSpawnBlock();
         }
 
-        
-
-        [Button]
         private void RandomSpawnBlock()
         {
             spawningObject = Instantiate(tetrisBlockList[Random.Range(0, tetrisBlockList.Count)]);

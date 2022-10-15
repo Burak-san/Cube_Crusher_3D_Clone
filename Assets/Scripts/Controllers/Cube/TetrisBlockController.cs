@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Enums;
 using Managers;
 using Signals;
 using UnityEngine;
@@ -17,6 +19,38 @@ namespace Controllers
         private void Awake()
         {
             _gridManager = FindObjectOfType<GridManager>();
+        }
+
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
+            Debug.Log("KAYDOLDUM");
+        }
+
+        private void UnSubscribeEvents()
+        {
+            CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
+            
+        }
+
+        private void OnDisable()
+        {
+            UnSubscribeEvents();
+        }
+
+        private void OnChangeGameState(GameStates currentState)
+        {
+            if (currentState == GameStates.MergePhase)
+            {
+                Debug.Log("Merge");
+                StartCoroutine(MergeRows());
+            }
         }
 
         public bool Check(Vector2Int checkingTileIndex)
@@ -57,14 +91,9 @@ namespace Controllers
                 checkingTile.IsPlaceable = false;
                 checkingTile.SnapPoint();
             }
-            
-            MergeRows();
-
-            Destroy(gameObject);
-            CoreGameSignals.Instance.onTetrisBlockPlace?.Invoke();
         }
 
-        private List<int> CheckMerge()
+        private void CheckMerge()
         {
             bool isRowFull = false;
 
@@ -89,15 +118,18 @@ namespace Controllers
                 if (isRowFull)
                     fullRowIndexList.Add(y);
             }
-            
-            return fullRowIndexList;
         }
 
-        private void MergeRows()
+        private IEnumerator MergeRows()
         {
             CheckMerge();
-            
-            if (fullRowIndexList.Count == 0) return;
+
+            if (fullRowIndexList.Count == 0)
+            {
+                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.AttackPhase);
+                Destroy(gameObject);
+                yield break;
+            }
 
             for (var ındex = 0; ındex < fullRowIndexList.Count; ındex++)
             {
@@ -116,18 +148,13 @@ namespace Controllers
                         });
                 }
             }
+
+            yield return new WaitForSeconds(1f);
+            
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.AttackPhase);
+            Destroy(gameObject);
         }
     }
-    
-    // _gridManager._nodes[x, y].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
-    //     () =>
-    //     {
-    //                         
-    //         _gridManager.BaseCubeList[x].IncreaseCubeValue(_gridManager._nodes[x, y].HeldCube.CubeValue);
-    //         _gridManager._nodes[x, y].IsPlaceable = true;
-    //         Destroy(_gridManager._nodes[x, y].HeldCube);
-    //         _gridManager._nodes[x, y].HeldCube = null;
-    //     });
 
     [Serializable]
     public struct CubeTransform
