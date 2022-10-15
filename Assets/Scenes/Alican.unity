@@ -601,6 +601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2212d30f397243af6ca7e8ec84792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &128287535
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1590,7 +1593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02aa884b14916a44a64fc4877192869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_XPosition: 0
 --- !u!114 &519658927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,8 +1606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StateCam: {fileID: 519658925}
-  lookCinemachineAxis: {fileID: 519658926}
-  gameBoard: {fileID: 480163115}
 --- !u!1 &523496669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2289,8 +2289,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsPlaceable: 0
-  CellPosition: {x: 0, y: 0, z: 0}
-  Obj: {fileID: 0}
+  CellIndex: {x: 0, y: 0}
+  HeldCube: {fileID: 0}
+  OffSetVector: {x: 0, y: 0, z: 0}
 --- !u!1001 &774305433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3914,7 +3915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efa92be532750f43973a07aa83d88f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridCellPrefab: {fileID: 63869916583392946, guid: 702df3e82f5cafb4fb56ec391142cebc, type: 3}
+  GridCellPrefab: {fileID: 0}
   height: 4
   width: 5
   cellHolder: {fileID: 408210783}
@@ -4219,7 +4220,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 10, z: -3}
+  m_LocalPosition: {x: 2, y: 10, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
