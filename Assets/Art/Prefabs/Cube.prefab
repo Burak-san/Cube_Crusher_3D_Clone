@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6179542925574501961}
   - component: {fileID: 7333697246006917704}
   - component: {fileID: 852709825756148218}
-  - component: {fileID: 3371526546560405110}
   - component: {fileID: 3893748523924036292}
   m_Layer: 7
   m_Name: Cube
@@ -84,21 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3371526546560405110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1461453534589468924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d1d567074f4f84aaa1e0ba4e37fb08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  valueText: {fileID: 5290814599278116263}
-  parentTetrisBlock: {fileID: 0}
-  IsPlaceable: 0
 --- !u!65 &3893748523924036292
 BoxCollider:
   m_ObjectHideFlags: 0

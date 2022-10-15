@@ -13,6 +13,7 @@ namespace Signals
         public UnityAction onGameClose = delegate {  };
         public UnityAction onPlay = delegate {  };
         public UnityAction onTurnChanged = delegate {  };
+        public UnityAction onTetrisBlockPlace = delegate {  };
         public UnityAction<GameStates> onChangeGameState = delegate {  };
         public UnityAction onReset = delegate {  };
         public UnityAction onApplicationQuit = delegate {  };
