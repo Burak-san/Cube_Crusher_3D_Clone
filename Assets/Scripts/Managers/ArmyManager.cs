@@ -33,7 +33,7 @@ namespace Managers
                 //HUMAN INSTANTIATE CART CURT
                 
                 //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
-                Debug.Log("attac kc");
+                Debug.Log("Attack Phase");
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
             }
         }

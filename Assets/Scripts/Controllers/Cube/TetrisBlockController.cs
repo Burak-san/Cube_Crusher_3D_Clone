@@ -5,6 +5,7 @@ using DG.Tweening;
 using Enums;
 using Managers;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Controllers
@@ -15,7 +16,11 @@ namespace Controllers
 
         private GridManager _gridManager;
         
-        List<int> fullRowIndexList = new List<int>();
+        private List<int> fullRowIndexList = new List<int>();
+
+        [SerializeField] private Vector3[] PathList = new Vector3[3];
+
+        private PathType _pathType = PathType.Linear;
         private void Awake()
         {
             _gridManager = FindObjectOfType<GridManager>();
@@ -138,14 +143,75 @@ namespace Controllers
                 for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
                 {
                     var x1 = x;
-                    _gridManager._nodes[x, index].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
+                    
+                    
+                    Vector3 midDistance = _gridManager.BaseCubeList[x].transform.position
+                                          -_gridManager._nodes[x, index].HeldCube.transform.position;
+                    
+                    PathList[0] = new Vector3(
+                        _gridManager._nodes[x, index].HeldCube.transform.position.x,
+                        _gridManager._nodes[x, index].HeldCube.transform.position.y,
+                        _gridManager._nodes[x, index].HeldCube.transform.position.z);
+                    
+                    PathList[1] = new Vector3(
+                        _gridManager._nodes[x, index].HeldCube.transform.position.x + midDistance.x/2,
+                        _gridManager._nodes[x, index].HeldCube.transform.position.y + midDistance.y/2+1,
+                        _gridManager._nodes[x, index].HeldCube.transform.position.z + midDistance.z/2);
+                    
+                    PathList[2] = new Vector3(
+                        _gridManager.BaseCubeList[x].transform.position.x,
+                        _gridManager.BaseCubeList[x].transform.position.y,
+                        _gridManager.BaseCubeList[x].transform.position.z);
+                    
+                    _gridManager._nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
                         () =>
                         {
                             _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
                             _gridManager._nodes[x1, index].IsPlaceable = true;
                             Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
                             _gridManager._nodes[x1, index].HeldCube = null;
-                        });
+                        }).SetEase(Ease.InOutSine);
+
+                    #region Old DOPaths
+
+                    ////////////////////////////////
+                    // PathList[0] = new Vector3(
+                    //     _gridManager._nodes[x, index].HeldCube.transform.position.x,
+                    //     _gridManager._nodes[x, index].HeldCube.transform.position.y,
+                    //     _gridManager._nodes[x, index].HeldCube.transform.position.z);
+                    //
+                    // PathList[1] = new Vector3(
+                    //     transform.position.x, 
+                    //     transform.position.y+1,
+                    //     transform.position.z);
+                    //
+                    // PathList[2] = new Vector3(
+                    //     _gridManager.BaseCubeList[x].transform.position.x,
+                    //     _gridManager.BaseCubeList[x].transform.position.y,
+                    //     _gridManager.BaseCubeList[x].transform.position.z);
+                    //
+                    //
+                    // _gridManager._nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
+                    //     () =>
+                    //     {
+                    //         _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
+                    //         _gridManager._nodes[x1, index].IsPlaceable = true;
+                    //         Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
+                    //         _gridManager._nodes[x1, index].HeldCube = null;
+                    //     });
+                    ///////////////////////////////
+                    // _gridManager._nodes[x, index].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
+                    //     () =>
+                    //     {
+                    //         _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
+                    //         _gridManager._nodes[x1, index].IsPlaceable = true;
+                    //         Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
+                    //         _gridManager._nodes[x1, index].HeldCube = null;
+                    //     });
+
+                        #endregion
+                    
+                    yield return new WaitForSeconds(.1f);
                 }
             }
 
