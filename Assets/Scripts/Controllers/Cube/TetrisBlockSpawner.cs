@@ -45,6 +45,7 @@ namespace Controllers.Cube
 
         private void RandomSpawnBlock()
         {
+            Debug.Log("Spawn");
             spawningObject = Instantiate(tetrisBlockList[Random.Range(0, tetrisBlockList.Count)]);
             spawningObject.transform.position = transform.position;
         }

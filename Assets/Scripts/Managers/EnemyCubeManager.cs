@@ -31,7 +31,7 @@ namespace Managers
             if (currentState == GameStates.EnemyMovePhase)
             {
                 //dusman MOVE mekanikleri cagirilacak
-                
+                Debug.Log("Enemy Move Phase");
                 //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);
             }
@@ -39,7 +39,7 @@ namespace Managers
             if (currentState == GameStates.EnemySpawnPhase)
             {
                 //dusman SPAWN mekanikleri cagirilacak
-                
+                Debug.Log("Enemy Spawn Phase");
                 //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Playing);
             }

@@ -5,7 +5,6 @@ using DG.Tweening;
 using Enums;
 using Managers;
 using Signals;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Controllers
@@ -53,9 +52,9 @@ namespace Controllers
         {
             if (currentState == GameStates.MergePhase)
             {
-                
-                StartCoroutine(MergeRows());
                 Debug.Log("Merge Phase");
+                StartCoroutine(MergeRows());
+                
             }
         }
 

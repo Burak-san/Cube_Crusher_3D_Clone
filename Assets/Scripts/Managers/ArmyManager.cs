@@ -58,16 +58,13 @@ namespace Managers
                             _gridManager.BaseCubeList[i].transform.position,
                             Quaternion.identity,
                             armyHolder.transform);
-                        Debug.Log("army: " + army.gameObject.name);
                         army.transform.position += new Vector3(0,-0.75f,0);
                         army.GetComponent<ArmyMovementController>().Move();
                         ArmyList.Add(army);
-                        Debug.Log("OKAY");
                         
                     }
                 }
                 
-                Debug.Log("Attack Phase END");
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
             }
         }
