@@ -4,6 +4,7 @@ using Controllers;
 using Enums;
 using Signals;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Managers
 {
@@ -53,12 +54,14 @@ namespace Managers
                     
                     for (int j = 0; j < spawnValue; j++)
                     {
+                        
                         GameObject army = _objectPooler.SpawnFromPool(
                             "Army",
                             _gridManager.BaseCubeList[i].transform.position,
                             Quaternion.identity,
                             armyHolder.transform);
-                        army.transform.position += Vector3.down;
+                        army.transform.position += new Vector3(Random.Range(0.1f,0.25f),-1,Random.Range(0.1f,1));
+                        
                         army.GetComponent<ArmyMovementController>().Move();
                         ArmyList.Add(army);
                         
