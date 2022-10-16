@@ -54,11 +54,11 @@ namespace Managers
                     for (int j = 0; j < spawnValue; j++)
                     {
                         GameObject army = _objectPooler.SpawnFromPool(
-                            "Human",
+                            "Army",
                             _gridManager.BaseCubeList[i].transform.position,
                             Quaternion.identity,
                             armyHolder.transform);
-                        army.transform.position += new Vector3(0,-0.75f,0);
+                        army.transform.position += Vector3.down;
                         army.GetComponent<ArmyMovementController>().Move();
                         ArmyList.Add(army);
                         
@@ -67,6 +67,13 @@ namespace Managers
                 
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
             }
+        }
+
+        public void ReturnToPoolArmy(GameObject army)
+        {
+            _objectPooler.ReturnToPool("Army",army);
+            
+            Debug.Log("Return To Pool");
         }
     }
 }

@@ -49,7 +49,7 @@ public class ObjectPooler : MonoSingleton<ObjectPooler>
         {
             Debug.LogWarning("Key doesn't exist in poolDictionary:" + tag);
         }
-        objectToPool.SetActive(true);
+        objectToPool.SetActive(false);
         objectToPool.transform.parent = transform;
         poolDictionary[tag].Enqueue(objectToPool);
     }

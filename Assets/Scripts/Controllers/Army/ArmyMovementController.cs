@@ -6,10 +6,10 @@ namespace Controllers
     {
 
         [SerializeField] private new Rigidbody rigidbody;
-        public float ForwardSpeed = 1f;
+        private float ForwardSpeed =3f;
         public void Move()
         {
-            rigidbody.velocity = new Vector3(0, rigidbody.velocity.y,ForwardSpeed);
+            rigidbody.velocity = new Vector3(0, 0,ForwardSpeed);
             rigidbody.angularVelocity = Vector3.zero;
         }
     }

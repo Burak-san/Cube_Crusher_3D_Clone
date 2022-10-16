@@ -92,7 +92,6 @@ namespace Controllers
                 Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
 
                 checkingTile.HeldCube = cubeTransform.cube;
-                Destroy(checkingTile.HeldCube.GetComponent<Collider>());
                 cubeTransform.cube.transform.SetParent(checkingTile.transform);
                 checkingTile.IsPlaceable = false;
                 checkingTile.SnapPoint();
