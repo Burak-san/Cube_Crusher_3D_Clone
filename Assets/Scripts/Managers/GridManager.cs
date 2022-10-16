@@ -5,33 +5,15 @@ namespace Managers
 {
     public class GridManager : MonoBehaviour
     {
-        #region Self Variables
-
-        #region Public Variables
-
         public Tile GridCellPrefab;
-
-        #endregion
-
-        #region Serialized Variables
-
-        [SerializeField]private int height;
-
-        [SerializeField]private int width;
-    
-        [SerializeField]private Transform cellHolder;
-
-        [field: SerializeField] public List<BaseCube> BaseCubeList { get; set; }
-
-        #endregion
-
-        #region Private Variables
-
         public Tile[,] _nodes;
         
-        #endregion
+        [SerializeField]private int height;
+        [SerializeField]private int width;
+        [SerializeField]private Transform cellHolder;
+        [field: SerializeField] public List<BaseCube> BaseCubeList { get; set; }
 
-        #endregion
+
     
         private void Awake()
         {

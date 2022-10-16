@@ -13,19 +13,20 @@ namespace Controllers
     public class TetrisBlockController : MonoBehaviour
     {
         [SerializeField] public CubeTransform[] cubePositions;
-
-        private GridManager _gridManager;
-        
-        private List<int> fullRowIndexList = new List<int>();
-
         [SerializeField] private Vector3[] PathList = new Vector3[3];
-
+        
+        private GridManager _gridManager;
+        private List<int> fullRowIndexList = new List<int>();
         private PathType _pathType = PathType.Linear;
+        
+        
+        
+        
+        
         private void Awake()
         {
             _gridManager = FindObjectOfType<GridManager>();
         }
-
 
         private void OnEnable()
         {
@@ -35,7 +36,6 @@ namespace Controllers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
-            Debug.Log("KAYDOLDUM");
         }
 
         private void UnSubscribeEvents()
@@ -53,8 +53,9 @@ namespace Controllers
         {
             if (currentState == GameStates.MergePhase)
             {
-                Debug.Log("Merge");
+                
                 StartCoroutine(MergeRows());
+                Debug.Log("Merge Phase");
             }
         }
 
@@ -92,6 +93,7 @@ namespace Controllers
                 Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
 
                 checkingTile.HeldCube = cubeTransform.cube;
+                Destroy(checkingTile.HeldCube.GetComponent<Collider>());
                 cubeTransform.cube.transform.SetParent(checkingTile.transform);
                 checkingTile.IsPlaceable = false;
                 checkingTile.SnapPoint();

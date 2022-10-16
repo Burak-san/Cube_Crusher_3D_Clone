@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Extentions;
 using UnityEngine;
 
-public class ObjectPooler : MonoBehaviour
+public class ObjectPooler : MonoSingleton<ObjectPooler>
 {
     [System.Serializable]
     public class Pool
@@ -11,18 +12,9 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
 
-    #region Singleton
-    public static ObjectPooler Instance;
-
-    private void Awake() {
-        Instance = this;
-    }
-    #endregion
-
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    // spawning from pool
 
     public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation, Transform parent) 
     {

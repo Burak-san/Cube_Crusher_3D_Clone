@@ -1,4 +1,7 @@
-﻿using Enums;
+﻿using System;
+using System.Collections.Generic;
+using Controllers;
+using Enums;
 using Signals;
 using UnityEngine;
 
@@ -6,6 +9,19 @@ namespace Managers
 {
     public class ArmyManager : MonoBehaviour
     {
+        [SerializeField] private Transform armyHolder;
+        
+        private ObjectPooler _objectPooler;
+        private List<GameObject> ArmyList = new List<GameObject>();
+        private ArmyMovementController _armyMovementController;
+        private GridManager _gridManager;
+
+        private void Awake()
+        {
+            _gridManager = FindObjectOfType<GridManager>();
+            _objectPooler = FindObjectOfType<ObjectPooler>();
+        }
+
         private void OnEnable()
         {
             SubscribeEvents();
@@ -30,10 +46,28 @@ namespace Managers
         {
             if (currentState == GameStates.AttackPhase)
             {
-                //HUMAN INSTANTIATE CART CURT
-                
-                //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 Debug.Log("Attack Phase");
+                for (int i = 0; i < _gridManager.BaseCubeList.Count; i++)
+                {
+                    int spawnValue = _gridManager.BaseCubeList[i].CubeValue;
+                    
+                    for (int j = 0; j < spawnValue; j++)
+                    {
+                        GameObject army = _objectPooler.SpawnFromPool(
+                            "Human",
+                            _gridManager.BaseCubeList[i].transform.position,
+                            Quaternion.identity,
+                            armyHolder.transform);
+                        Debug.Log("army: " + army.gameObject.name);
+                        army.transform.position += new Vector3(0,-0.75f,0);
+                        army.GetComponent<ArmyMovementController>().Move();
+                        ArmyList.Add(army);
+                        Debug.Log("OKAY");
+                        
+                    }
+                }
+                
+                Debug.Log("Attack Phase END");
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
             }
         }

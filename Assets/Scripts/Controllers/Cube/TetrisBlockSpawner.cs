@@ -14,7 +14,7 @@ namespace Controllers.Cube
         void Start()
         {
             RandomSpawnBlock();
-            Debug.Log(FindObjectOfType<LevelSignals>().gameObject.name);
+            //Debug.Log(FindObjectOfType<LevelSignals>().gameObject.name);
         }
 
         private void OnEnable()
