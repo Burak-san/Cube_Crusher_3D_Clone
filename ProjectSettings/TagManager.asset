@@ -8,6 +8,8 @@ TagManager:
   - Army
   - EnemyCube
   - EnemyBase
+  - ArmyHolder
+  - FriendCube
   layers:
   - Default
   - TransparentFX

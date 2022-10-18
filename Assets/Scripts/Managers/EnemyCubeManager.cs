@@ -1,11 +1,23 @@
-﻿using Enums;
+﻿using System;
+using System.Collections.Generic;
+using Controllers;
+using Controllers.EnemyCube;
+using DG.Tweening;
+using Enums;
 using Signals;
 using UnityEngine;
+
 
 namespace Managers
 {
     public class EnemyCubeManager : MonoBehaviour
     {
+         private EnemyCubeMovementController enemyCubeMovementController;
+        [SerializeField] private List<GameObject> EnemyCubeList = new List<GameObject>();
+
+       
+        
+
         private void OnEnable()
         {
             SubscribeEvents();
@@ -30,7 +42,7 @@ namespace Managers
         {
             if (currentState == GameStates.EnemyMovePhase)
             {
-                //dusman MOVE mekanikleri cagirilacak
+                EnemyMove();
                 Debug.Log("Enemy Move Phase");
                 //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);
@@ -45,7 +57,13 @@ namespace Managers
             }
         }
         
-        
+        public void EnemyMove()
+        {
+            for (int i = 0; i < EnemyCubeList.Count; i++)
+            {
+                EnemyCubeList[i].transform.DOMove(EnemyCubeList[i].transform.position + Vector3.back, 1, false);
+            }
+        }
         
     }
 }

@@ -67,11 +67,20 @@ namespace Managers
                         
                     }
                 }
-                
-                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
+
             }
+            
         }
 
+        public void ArmyCheck()
+        {
+
+            if (armyHolder.childCount == 0)
+            {
+                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
+            }
+
+        }
         public void ReturnToPoolArmy(GameObject army)
         {
             _objectPooler.ReturnToPool("Army",army);
