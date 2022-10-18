@@ -1,4 +1,5 @@
 ﻿using System;
+using Controllers.Cube;
 using UnityEngine;
 
 namespace Controllers.EnemyCube
@@ -7,10 +8,10 @@ namespace Controllers.EnemyCube
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("FriendCube"))
+            if (other.TryGetComponent(out IncrementCubes _))
             {
                 Destroy(other.gameObject);
-                Debug.Log("HitFriendCube");
+                
             }
         }
     }

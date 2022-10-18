@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
+using Controllers.Cube;
 using DG.Tweening;
 using Enums;
 using Managers;
 using Signals;
 using UnityEngine;
 
-namespace Controllers
+namespace Managers
 {
-    public class TetrisBlockController : MonoBehaviour
+    public class TetrisBlockManager : MonoBehaviour
     {
         [SerializeField] public CubeTransform[] cubePositions;
         [SerializeField] private Vector3[] PathList = new Vector3[3];
@@ -17,10 +19,6 @@ namespace Controllers
         private GridManager _gridManager;
         private List<int> fullRowIndexList = new List<int>();
         private PathType _pathType = PathType.Linear;
-        
-        
-        
-        
         
         private void Awake()
         {
@@ -52,7 +50,6 @@ namespace Controllers
         {
             if (currentState == GameStates.MergePhase)
             {
-                Debug.Log("Merge Phase");
                 StartCoroutine(MergeRows());
                 
             }

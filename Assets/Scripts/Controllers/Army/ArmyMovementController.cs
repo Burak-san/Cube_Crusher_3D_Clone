@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Controllers
+namespace Controllers.Army
 {
     public class ArmyMovementController: MonoBehaviour
     {

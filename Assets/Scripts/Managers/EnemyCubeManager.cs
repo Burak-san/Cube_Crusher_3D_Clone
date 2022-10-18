@@ -12,11 +12,7 @@ namespace Managers
 {
     public class EnemyCubeManager : MonoBehaviour
     {
-         private EnemyCubeMovementController enemyCubeMovementController;
         [SerializeField] private List<GameObject> EnemyCubeList = new List<GameObject>();
-
-       
-        
 
         private void OnEnable()
         {
@@ -43,16 +39,13 @@ namespace Managers
             if (currentState == GameStates.EnemyMovePhase)
             {
                 EnemyMove();
-                Debug.Log("Enemy Move Phase");
-                //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);
             }
              
             if (currentState == GameStates.EnemySpawnPhase)
             {
-                //dusman SPAWN mekanikleri cagirilacak
+                //dusman SPAWN mekanikleri cagirilacak POOL KONACAK
                 Debug.Log("Enemy Spawn Phase");
-                //YUKARIDAKILER YAPILDIKTAN SONRA INVOKE ATILDI
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Playing);
             }
         }

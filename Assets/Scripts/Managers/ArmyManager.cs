@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Controllers;
+using Controllers.Army;
 using Enums;
 using Signals;
 using UnityEngine;
@@ -47,7 +48,6 @@ namespace Managers
         {
             if (currentState == GameStates.AttackPhase)
             {
-                Debug.Log("Attack Phase");
                 for (int i = 0; i < _gridManager.BaseCubeList.Count; i++)
                 {
                     int spawnValue = _gridManager.BaseCubeList[i].CubeValue;
@@ -64,28 +64,21 @@ namespace Managers
                         
                         army.GetComponent<ArmyMovementController>().Move();
                         ArmyList.Add(army);
-                        
                     }
                 }
-
             }
-            
         }
 
         public void ArmyCheck()
         {
-
             if (armyHolder.childCount == 0)
             {
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemyMovePhase);
             }
-
         }
         public void ReturnToPoolArmy(GameObject army)
         {
             _objectPooler.ReturnToPool("Army",army);
-            
-            Debug.Log("Return To Pool");
         }
     }
 }

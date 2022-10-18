@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6417470143230744377}
   - component: {fileID: 6417470143230744376}
   - component: {fileID: 6417470143230744379}
-  - component: {fileID: 6417470143230744383}
   - component: {fileID: 6417470143230744380}
   m_Layer: 0
   m_Name: SpawnPoint
@@ -98,22 +97,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &6417470143230744383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6417470143230744378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee27c0fd9c62f1a4fab97a4456066132, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsPlaceable: 0
-  CellIndex: {x: 0, y: 0}
-  HeldCube: {fileID: 0}
-  OffSetVector: {x: 0, y: 1, z: 0}
 --- !u!114 &6417470143230744380
 MonoBehaviour:
   m_ObjectHideFlags: 0

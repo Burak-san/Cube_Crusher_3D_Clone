@@ -5,16 +5,16 @@ using Signals;
 using UnityEditor;
 using UnityEngine;
 
-namespace Controllers
+namespace Managers
 {
-    public class CubePlaceController : MonoBehaviour
+    public class CubePlaceManager : MonoBehaviour
     {
         [SerializeField] private LayerMask tetrisLayer;
         [SerializeField] private LayerMask tileLayer;
         
         private Tile pickedTile;
         
-        private TetrisBlockController _selectedObject;
+        private TetrisBlockManager _selectedObject;
         private Vector3 pickedPosition;
         
         private Camera mainCam;
@@ -44,7 +44,7 @@ namespace Controllers
         private void SelectObject(Ray ray)
         {
             if (Physics.Raycast(ray, out RaycastHit hitInfo, mainCam.farClipPlane, tetrisLayer))
-                if (hitInfo.collider.transform.parent.TryGetComponent(out TetrisBlockController tbc))
+                if (hitInfo.collider.transform.parent.TryGetComponent(out TetrisBlockManager tbc))
                 {
                     _selectedObject = tbc;
                     pickedPosition = tbc.transform.position;
@@ -56,7 +56,7 @@ namespace Controllers
             Vector3 position = new Vector3(Input.mousePosition.x, Input.mousePosition.y,
                 mainCam.WorldToScreenPoint(_selectedObject.transform.position).z);
             Vector3 worldPosition = mainCam.ScreenToWorldPoint(position);
-            _selectedObject.transform.position = new Vector3(worldPosition.x, 1.5f, worldPosition.z);
+            _selectedObject.transform.position = new Vector3(worldPosition.x, 2f, worldPosition.z);
         }
 
         private void DropSelectedObject(Ray ray)

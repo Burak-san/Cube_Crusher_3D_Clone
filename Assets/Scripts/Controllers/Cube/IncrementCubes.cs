@@ -1,19 +1,19 @@
-﻿using TMPro;
+﻿using Managers;
+using TMPro;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace Controllers
+namespace Controllers.Cube
 {
     public class IncrementCubes : MonoBehaviour
     {
         [SerializeField] private TextMeshPro valueText;
         public int CubeValue { get; private set; }
-        public TetrisBlockController parentTetrisBlock;
+        public TetrisBlockManager parentTetrisBlock;
         public bool IsPlaceable;
 
         private void Awake()
         {
-            parentTetrisBlock = GetComponentInParent<TetrisBlockController>();
+            parentTetrisBlock = GetComponentInParent<TetrisBlockManager>();
         }
 
         private void Start()

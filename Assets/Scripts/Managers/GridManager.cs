@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Controllers.Cube;
 using UnityEngine;
 
 namespace Managers
@@ -11,7 +12,7 @@ namespace Managers
         [SerializeField]private int height;
         [SerializeField]private int width;
         [SerializeField]private Transform cellHolder;
-        [field: SerializeField] public List<BaseCube> BaseCubeList { get; set; }
+        [field: SerializeField] public List<BaseCubeController> BaseCubeList { get; set; }
 
 
     

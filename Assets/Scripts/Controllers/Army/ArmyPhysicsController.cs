@@ -4,7 +4,7 @@ using Managers;
 using Signals;
 using UnityEngine;
 
-namespace Controllers.Cube
+namespace Controllers.Army
 {
     public class ArmyPhysicsController : MonoBehaviour
     {
@@ -27,12 +27,13 @@ namespace Controllers.Cube
             }
             
 
-            // if (other.CompareTag("EnemyBase"))
-            // {
-            //     _armyManager.ReturnToPoolArmy(gameObject);
-            // }
+            if (other.CompareTag("EnemyBase"))
+            {
+                _armyManager.ReturnToPoolArmy(gameObject);
+                _armyManager.ArmyCheck();
+            }
             
-            if (other.CompareTag("Draggable"))
+            if (other.CompareTag("OurCube"))
             {
                 //küpler scale olabilir
             }
