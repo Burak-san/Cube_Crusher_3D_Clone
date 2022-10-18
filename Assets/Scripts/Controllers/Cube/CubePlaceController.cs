@@ -26,6 +26,11 @@ namespace Controllers
 
         private void Update()
         {
+            MouseOperations();
+        }
+
+        private void MouseOperations()
+        {
             if (Input.GetMouseButtonDown(0))
                 SelectObject(mainCam.ScreenPointToRay(Input.mousePosition));
             

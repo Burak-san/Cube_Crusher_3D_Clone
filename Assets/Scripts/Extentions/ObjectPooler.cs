@@ -31,18 +31,6 @@ public class ObjectPooler : MonoSingleton<ObjectPooler>
         return objectToSpawn;
     }
 
-    public GameObject SpawnFromPool(string tag) 
-    {
-        if (!poolDictionary.ContainsKey(tag)) 
-        {
-            Debug.LogWarning("Key doesn't exist in objectPooler:" + tag);
-        }
-        
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-        objectToSpawn.SetActive(true);
-        return objectToSpawn;
-    }
-
     public void ReturnToPool(string tag, GameObject objectToPool) 
     {
         if (!poolDictionary.ContainsKey(tag)) 
@@ -51,6 +39,7 @@ public class ObjectPooler : MonoSingleton<ObjectPooler>
         }
         objectToPool.SetActive(false);
         objectToPool.transform.parent = transform;
+        objectToPool.transform.position = transform.position;
         poolDictionary[tag].Enqueue(objectToPool);
     }
 

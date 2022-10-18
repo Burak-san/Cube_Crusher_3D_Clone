@@ -12,13 +12,10 @@ public class HumanAnimationController : MonoBehaviour
     {
         
         _animator = GetComponent<Animator>();
-        Debug.Log("get component anim");
     }
 
     void Start()
     {
-        
         _animator.Play("Running");
-        Debug.Log("Animator play");
     }
 }

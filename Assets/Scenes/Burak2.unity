@@ -1783,7 +1783,7 @@ MonoBehaviour:
   pools:
   - tag: Army
     prefab: {fileID: 3765240513211792736, guid: 9fe464de95316214d8c377a11f0e49ad, type: 3}
-    size: 300
+    size: 500
 --- !u!1 &1401426035
 GameObject:
   m_ObjectHideFlags: 0
