@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4991460048069560065, guid: cf526ad696cb01c419cbac177a952d8b, type: 3}
+      propertyPath: enemyCubeHolder
+      value: 
+      objectReference: {fileID: 1127966930}
     - target: {fileID: 5833372239340096178, guid: cf526ad696cb01c419cbac177a952d8b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -1748,6 +1752,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64da7bfbe945491a80b7cede1270cc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1127966930 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2422442765504122084, guid: cf526ad696cb01c419cbac177a952d8b, type: 3}
+  m_PrefabInstance: {fileID: 197138632}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1313016638
 GameObject:
   m_ObjectHideFlags: 0

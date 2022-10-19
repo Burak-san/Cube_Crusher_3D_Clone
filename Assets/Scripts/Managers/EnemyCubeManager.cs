@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Controllers;
 using Controllers.EnemyCube;
 using DG.Tweening;
@@ -12,7 +13,21 @@ namespace Managers
 {
     public class EnemyCubeManager : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> EnemyCubeList = new List<GameObject>();
+        [SerializeField] private List<GameObject> enemyCubeList = new List<GameObject>();
+        [SerializeField] private List<Transform> enemyCubeSpawnTransformList = new List<Transform>();
+        [SerializeField] private Transform enemyCubeHolder;
+        
+        private ObjectPooler _objectPooler;
+        
+        private void Awake()
+        {
+            _objectPooler = FindObjectOfType<ObjectPooler>();
+        }
+
+        private void Start()
+        {
+            EnemyCubeGetFromPool();
+        }
 
         private void OnEnable()
         {
@@ -38,25 +53,44 @@ namespace Managers
         {
             if (currentState == GameStates.EnemyMovePhase)
             {
-                EnemyMove();
-                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);
+                EnemyCubeMove();
+                EnemySpawnPhaseSignal();
+                
             }
              
             if (currentState == GameStates.EnemySpawnPhase)
             {
-                //dusman SPAWN mekanikleri cagirilacak POOL KONACAK
-                Debug.Log("Enemy Spawn Phase");
+                EnemyCubeGetFromPool();
                 CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Playing);
             }
         }
-        
-        public void EnemyMove()
+
+        private async void EnemySpawnPhaseSignal()
         {
-            for (int i = 0; i < EnemyCubeList.Count; i++)
+            await Task.Delay(1000);
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);
+        }
+
+        private void EnemyCubeMove()
+        {
+            for (int i = 0; i < enemyCubeList.Count; i++)
             {
-                EnemyCubeList[i].transform.DOMove(EnemyCubeList[i].transform.position + Vector3.back, 1, false);
+                enemyCubeList[i].GetComponent<EnemyCubeMovementController>().Move();
             }
         }
-        
+
+        private void EnemyCubeGetFromPool()
+        {
+            for (int i = 0; i < enemyCubeSpawnTransformList.Count; i++)
+            {
+                GameObject EnemyCube = _objectPooler.SpawnFromPool(
+                    "EnemyCube",
+                    enemyCubeSpawnTransformList[i].transform.position,
+                    Quaternion.identity,
+                    enemyCubeHolder.transform);
+                        
+                enemyCubeList.Add(EnemyCube);
+            }
+        }
     }
 }
