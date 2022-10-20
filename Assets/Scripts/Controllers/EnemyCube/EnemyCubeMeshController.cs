@@ -19,13 +19,12 @@ namespace Controllers.EnemyCube
 
         private void OnEnable()
         {
-            GetRandomScale();
+            SpawnRandomScale();
             GetMaterial();
         }
 
         private void GetMaterial()
         {
-
             if (_scale <= 0.4f)
             {
                 _renderer.material.color = materialList[0].color;
@@ -52,11 +51,18 @@ namespace Controllers.EnemyCube
             }
         }
         
-        private void GetRandomScale()
+        private void SpawnRandomScale()
         {
             float tempScale = Random.Range(0.4f,1.6f);
             _scale = tempScale;
             transform.DOScaleY(tempScale, 3f).SetEase(Ease.OutElastic);
+        }
+
+        public void ArmyHitEnemyCube()
+        {
+            Debug.Log("scale küçüldü");
+            // float tempScale = _scale - scale;
+            // transform.DOScaleY(tempScale, 0.1f).SetEase(Ease.OutElastic);
         }
     }
 }

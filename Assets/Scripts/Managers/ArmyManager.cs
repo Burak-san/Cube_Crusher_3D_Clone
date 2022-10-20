@@ -32,11 +32,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
+            
         }
         
         private void UnSubscribeEvents()
         {
             CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState; 
+            
         }
         
         private void OnDisable()
@@ -68,7 +70,6 @@ namespace Managers
                 }
             }
         }
-
         public void ArmyCheck()
         {
             if (armyHolder.childCount == 0)

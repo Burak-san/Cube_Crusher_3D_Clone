@@ -1,4 +1,5 @@
 ﻿using System;
+using Controllers.EnemyCube;
 using Enums;
 using Managers;
 using Signals;
@@ -22,8 +23,12 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
+                
+                //EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(0.1f,other.gameObject);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
+                Debug.Log("HitEnemyCube");
+                
             }
             
 

@@ -38,10 +38,9 @@ namespace Managers
         {
             CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
         }
-        
         private void UnSubscribeEvents()
         {
-            CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState; 
+            CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
         }
         
         private void OnDisable()
@@ -78,6 +77,8 @@ namespace Managers
                 enemyCubeList[i].GetComponent<EnemyCubeMovementController>().Move();
             }
         }
+        
+        
 
         private void EnemyCubeGetFromPool()
         {
