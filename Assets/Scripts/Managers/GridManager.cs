@@ -32,7 +32,15 @@ namespace Managers
                     Tile newTile = Instantiate(GridCellPrefab, worldPosition, Quaternion.identity);
                     newTile.name =  $"Cell {z} {x}";
                     newTile.transform.SetParent(cellHolder);
-                    newTile.Init(true, new Vector2Int(x,z));
+                    if (z > 3)
+                    {
+                        newTile.Init(false,true, new Vector2Int(x,z));
+                    }
+                    else
+                    {
+                        newTile.Init(true,false, new Vector2Int(x,z));
+                    }
+                    
                     _nodes[x, z] = newTile;
                 }
             }

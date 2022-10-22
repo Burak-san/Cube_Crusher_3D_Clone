@@ -7,14 +7,16 @@ namespace Managers
     {
         public bool IsPlaceable;
         public Vector2Int CellIndex;
+        public bool IsEnemyTile;
         
-        public IncrementCubes HeldCube;
+        public Cube HeldCube;
         
         [SerializeField] public Vector3 OffSetVector;
 
-        public void Init(bool isPlaceable, Vector2Int cellIndex){
+        public void Init(bool isPlaceable,bool isEnemyTile, Vector2Int cellIndex){
             this.IsPlaceable = isPlaceable;
             this.CellIndex = cellIndex;
+            this.IsEnemyTile = isEnemyTile;
         }
         
         public void SnapPoint()

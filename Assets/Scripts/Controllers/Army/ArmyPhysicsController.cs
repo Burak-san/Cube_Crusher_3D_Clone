@@ -1,5 +1,4 @@
 ﻿using System;
-using Controllers.EnemyCube;
 using Enums;
 using Managers;
 using Signals;
@@ -9,7 +8,7 @@ namespace Controllers.Army
 {
     public class ArmyPhysicsController : MonoBehaviour
     {
-
+        
         private ArmyManager _armyManager;
         
 
@@ -23,12 +22,9 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
-                
-                //EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(0.1f,other.gameObject);
+                EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
-                Debug.Log("HitEnemyCube");
-                
             }
             
 

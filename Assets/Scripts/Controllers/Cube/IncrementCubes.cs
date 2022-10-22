@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Controllers.Cube
 {
-    public class IncrementCubes : MonoBehaviour
+    public class IncrementCubes : Cube
     {
         [SerializeField] private TextMeshPro valueText;
         public int CubeValue { get; private set; }

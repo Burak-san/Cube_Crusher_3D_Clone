@@ -72,7 +72,7 @@ namespace Managers
                 Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
 
                 control = checkingTile.IsPlaceable;
-                
+                if (checkingTile.IsEnemyTile) return false;
                 if (control == false) return false;
             }
             
@@ -104,6 +104,7 @@ namespace Managers
                 for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
                 {
                     Tile checkingTile = _gridManager._nodes[x, y];
+                    if (checkingTile.IsEnemyTile) return;
                     
                     if (checkingTile.IsPlaceable == false)
                     {
@@ -163,7 +164,8 @@ namespace Managers
                     _gridManager._nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
                         () =>
                         {
-                            _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
+                            _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].
+                                HeldCube.GetComponent<IncrementCubes>().CubeValue);
                             _gridManager._nodes[x1, index].IsPlaceable = true;
                             Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
                             _gridManager._nodes[x1, index].HeldCube = null;

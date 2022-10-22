@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridCellPrefab: {fileID: 4687457291424914993, guid: 702df3e82f5cafb4fb56ec391142cebc, type: 3}
-  height: 4
+  height: 9
   width: 5
   cellHolder: {fileID: 7124951801444978188}
   <BaseCubeList>k__BackingField:
