@@ -66,13 +66,14 @@ namespace Managers
 
                 if (xIndex < 0 || 
                     yIndex < 0 || 
-                    xIndex >= _gridManager._nodes.GetLength(0) || 
-                    yIndex >= _gridManager._nodes.GetLength(1)) return false;
+                    xIndex >= _gridManager.Nodes.GetLength(0) || 
+                    yIndex >= _gridManager.Nodes.GetLength(1)) return false;
                 
-                Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
+                Tile checkingTile = _gridManager.Nodes[xIndex, yIndex];
 
                 control = checkingTile.IsPlaceable;
                 if (checkingTile.IsEnemyTile) return false;
+                if (checkingTile.IsBaseTile) return false;
                 if (control == false) return false;
             }
             
@@ -86,7 +87,7 @@ namespace Managers
                 int xIndex = checkingTileIndex.x + cubeTransform.x;
                 int yIndex = checkingTileIndex.y + cubeTransform.y;
                 
-                Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
+                Tile checkingTile = _gridManager.Nodes[xIndex, yIndex];
 
                 checkingTile.HeldCube = cubeTransform.cube;
                 cubeTransform.cube.transform.SetParent(checkingTile.transform);
@@ -99,14 +100,14 @@ namespace Managers
         {
             bool isRowFull = false;
 
-            for (int y = 0; y < _gridManager._nodes.GetLength(1); y++)
+            for (int y = 0; y < _gridManager.Nodes.GetLength(1); y++)
             {
-                for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
+                for (int x = 0; x < _gridManager.Nodes.GetLength(0); x++)
                 {
-                    Tile checkingTile = _gridManager._nodes[x, y];
+                    Tile checkingTile = _gridManager.Nodes[x, y];
                     if (checkingTile.IsEnemyTile) return;
                     
-                    if (checkingTile.IsPlaceable == false)
+                    if (checkingTile.IsPlaceable == false && checkingTile.IsBaseTile == false)
                     {
                         isRowFull = true;
                         
@@ -138,77 +139,39 @@ namespace Managers
             {
                 int index = fullRowIndexList[ındex];
                 
-                for (int x = 0; x < _gridManager._nodes.GetLength(0); x++)
+                for (int x = 0; x < _gridManager.Nodes.GetLength(0); x++)
                 {
                     var x1 = x;
                     
                     
                     Vector3 midDistance = _gridManager.BaseCubeList[x].transform.position
-                                          -_gridManager._nodes[x, index].HeldCube.transform.position;
+                                          -_gridManager.Nodes[x, index].HeldCube.transform.position;
                     
                     PathList[0] = new Vector3(
-                        _gridManager._nodes[x, index].HeldCube.transform.position.x,
-                        _gridManager._nodes[x, index].HeldCube.transform.position.y,
-                        _gridManager._nodes[x, index].HeldCube.transform.position.z);
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.x,
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.y,
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.z);
                     
                     PathList[1] = new Vector3(
-                        _gridManager._nodes[x, index].HeldCube.transform.position.x + midDistance.x/2,
-                        _gridManager._nodes[x, index].HeldCube.transform.position.y + midDistance.y/2+1,
-                        _gridManager._nodes[x, index].HeldCube.transform.position.z + midDistance.z/2);
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.x + midDistance.x/2,
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.y + midDistance.y/2+1,
+                        _gridManager.Nodes[x, index].HeldCube.transform.position.z + midDistance.z/2);
                     
                     PathList[2] = new Vector3(
                         _gridManager.BaseCubeList[x].transform.position.x,
                         _gridManager.BaseCubeList[x].transform.position.y,
                         _gridManager.BaseCubeList[x].transform.position.z);
                     
-                    _gridManager._nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
+                    _gridManager.Nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
                         () =>
                         {
-                            _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].
+                            _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager.Nodes[x1, index].
                                 HeldCube.GetComponent<IncrementCubes>().CubeValue);
-                            _gridManager._nodes[x1, index].IsPlaceable = true;
-                            Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
-                            _gridManager._nodes[x1, index].HeldCube = null;
+                            _gridManager.Nodes[x1, index].IsPlaceable = true;
+                            Destroy(_gridManager.Nodes[x1, index].HeldCube.gameObject);
+                            
+                            _gridManager.Nodes[x1, index].HeldCube = null;
                         }).SetEase(Ease.InOutSine);
-
-                    #region Old DOPaths
-
-                    ////////////////////////////////
-                    // PathList[0] = new Vector3(
-                    //     _gridManager._nodes[x, index].HeldCube.transform.position.x,
-                    //     _gridManager._nodes[x, index].HeldCube.transform.position.y,
-                    //     _gridManager._nodes[x, index].HeldCube.transform.position.z);
-                    //
-                    // PathList[1] = new Vector3(
-                    //     transform.position.x, 
-                    //     transform.position.y+1,
-                    //     transform.position.z);
-                    //
-                    // PathList[2] = new Vector3(
-                    //     _gridManager.BaseCubeList[x].transform.position.x,
-                    //     _gridManager.BaseCubeList[x].transform.position.y,
-                    //     _gridManager.BaseCubeList[x].transform.position.z);
-                    //
-                    //
-                    // _gridManager._nodes[x, index].HeldCube.transform.DOPath(PathList, 1, _pathType).OnComplete(
-                    //     () =>
-                    //     {
-                    //         _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
-                    //         _gridManager._nodes[x1, index].IsPlaceable = true;
-                    //         Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
-                    //         _gridManager._nodes[x1, index].HeldCube = null;
-                    //     });
-                    ///////////////////////////////
-                    // _gridManager._nodes[x, index].HeldCube.transform.DOMove(_gridManager.BaseCubeList[x].transform.position, 1f).OnComplete(
-                    //     () =>
-                    //     {
-                    //         _gridManager.BaseCubeList[x1].IncreaseCubeValue(_gridManager._nodes[x1, index].HeldCube.CubeValue);
-                    //         _gridManager._nodes[x1, index].IsPlaceable = true;
-                    //         Destroy(_gridManager._nodes[x1, index].HeldCube.gameObject);
-                    //         _gridManager._nodes[x1, index].HeldCube = null;
-                    //     });
-
-                        #endregion
                     
                     yield return new WaitForSeconds(.1f);
                 }

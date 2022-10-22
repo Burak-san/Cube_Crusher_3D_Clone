@@ -54,33 +54,9 @@ namespace Controllers.Cube
                 DetectSpawnableBlocks();
                 RandomSpawnBlock();
             }
-                
-                
         }
-        
-        // public bool SpawnCheck(Vector2Int checkingTileIndex, CubeTransform[] cubePositions)
-        // {
-        //     bool control = false;
-        //     
-        //     foreach (CubeTransform cubeTransform in cubePositions)
-        //     {
-        //         int xIndex = checkingTileIndex.x + cubeTransform.x;
-        //         int yIndex = checkingTileIndex.y + cubeTransform.y;
-        //
-        //         if (xIndex < 0 || 
-        //             yIndex < 0 || 
-        //             xIndex >= _gridManager._nodes.GetLength(0) || 
-        //             yIndex >= _gridManager._nodes.GetLength(1)) return false;
-        //         
-        //         Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
-        //
-        //         control = checkingTile.IsPlaceable;
-        //         
-        //         if (control == false) return false;
-        //     }
-        //     
-        //     return true;
-        // }
+
+
         public bool SpawnCheck(Vector2Int checkingTileIndex, CubeTransform[] cubePositions)
         {
             bool control = false;
@@ -92,12 +68,13 @@ namespace Controllers.Cube
 
                 if (xIndex < 0 || 
                     yIndex < 0 || 
-                    xIndex >= _gridManager._nodes.GetLength(0) || 
-                    yIndex >= _gridManager._nodes.GetLength(1)) return false;
+                    xIndex >= _gridManager.Nodes.GetLength(0) || 
+                    yIndex >= _gridManager.Nodes.GetLength(1)) return false;
                 
-                Tile checkingTile = _gridManager._nodes[xIndex, yIndex];
+                Tile checkingTile = _gridManager.Nodes[xIndex, yIndex];
 
                 control = checkingTile.IsPlaceable;
+                if (checkingTile.IsBaseTile) return false;
                 if (checkingTile.IsEnemyTile) return false;
                 if (control == false) return false;
             }
@@ -110,7 +87,7 @@ namespace Controllers.Cube
             _spawnList.Clear();
             for (int i = 0; i < tetrisBlockList.Count; i++)
             {
-                foreach (Tile tile in _gridManager._nodes)
+                foreach (Tile tile in _gridManager.Nodes)
                 {
                     if (SpawnCheck(tile.CellIndex,tetrisBlockList[i].cubePositions))
                     {

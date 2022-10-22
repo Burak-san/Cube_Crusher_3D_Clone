@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace Controllers.Cube
 {
-    public class BaseCubeController : MonoBehaviour
+    public class BaseCube : Cube
     {
         [SerializeField] private TextMeshPro valueText;
+        public Vector2Int BaseCubeTilePosition;
         public int CubeValue { get; private set; }
 
         private void Start()

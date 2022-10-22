@@ -88,31 +88,31 @@ namespace Managers
 
         public void RemoveEnemyCubeList(EnemyCube enemyCube)
         {
-            if (enemyCube.tilePosition.y <=3)
+            if (enemyCube.EnemyCubeTilePosition.y <=3)
             {
-                _gridManager._nodes[enemyCube.tilePosition.x, enemyCube.tilePosition.y].IsPlaceable = true;
-                _gridManager._nodes[enemyCube.tilePosition.x, enemyCube.tilePosition.y].IsEnemyTile = false;
+                _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].IsPlaceable = true;
+                _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].IsEnemyTile = false;
             }
-            _gridManager._nodes[enemyCube.tilePosition.x, enemyCube.tilePosition.y].HeldCube = null;
+            _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].HeldCube = null;
             enemyCubeList.Remove(enemyCube);
         }
         
 
         private void EnemyCubeGetFromPool()
         {
-            for (int i = 0; i < _gridManager._nodes.GetLength(0); i++)
+            for (int i = 0; i < _gridManager.Nodes.GetLength(0); i++)
             {
-                int spawnPointY = _gridManager._nodes.GetLength(1) - 1;
+                int spawnPointY = _gridManager.Nodes.GetLength(1) - 1;
                 EnemyCube EnemyCube = _objectPooler.SpawnFromPool(
                     "EnemyCube",
                     Vector3.up,
                     Quaternion.identity,
-                    _gridManager._nodes[i, spawnPointY].transform).GetComponent<EnemyCube>();
+                    _gridManager.Nodes[i, spawnPointY].transform).GetComponent<EnemyCube>();
 
-                EnemyCube.tilePosition = new Vector2Int(i, spawnPointY);
-                _gridManager._nodes[i, spawnPointY].HeldCube = EnemyCube;
-                _gridManager._nodes[i, spawnPointY].IsPlaceable = false;
-                _gridManager._nodes[i, spawnPointY].SnapPoint();
+                EnemyCube.EnemyCubeTilePosition = new Vector2Int(i, spawnPointY);
+                _gridManager.Nodes[i, spawnPointY].HeldCube = EnemyCube;
+                _gridManager.Nodes[i, spawnPointY].IsPlaceable = false;
+                _gridManager.Nodes[i, spawnPointY].SnapPoint();
                 enemyCubeList.Add(EnemyCube);
             }
         }

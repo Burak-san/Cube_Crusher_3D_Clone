@@ -131,6 +131,7 @@ namespace Managers
         private void OnReset()
         {
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
+            UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LevelPanel);
         }
     }
 }

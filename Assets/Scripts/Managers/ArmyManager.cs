@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Controllers;
 using Controllers.Army;
+using Controllers.Cube;
 using Enums;
 using Signals;
 using UnityEngine;
@@ -50,25 +52,47 @@ namespace Managers
         {
             if (currentState == GameStates.AttackPhase)
             {
-                for (int i = 0; i < _gridManager.BaseCubeList.Count; i++)
-                {
-                    int spawnValue = _gridManager.BaseCubeList[i].CubeValue;
+                SpawnArmyInBaseCube();
+            }
+        }
+
+        
+        public void SpawnArmyInBaseCube()
+        {
+            for (int i = 0; i < _gridManager.BaseCubeList.Count; i++)
+            {
+                int spawnValue = _gridManager.BaseCubeList[i].CubeValue;
                     
-                    for (int j = 0; j < spawnValue; j++)
-                    {
+                for (int j = 0; j < spawnValue; j++)
+                {
+                    GameObject army = _objectPooler.SpawnFromPool(
+                        "Army",
+                        _gridManager.BaseCubeList[i].transform.position,
+                        Quaternion.identity,
+                        armyHolder.transform);
+                    army.transform.position -= new Vector3(Random.Range(-0.25f,0.25f),1,Random.Range(0.1f,1.5f));
                         
-                        GameObject army = _objectPooler.SpawnFromPool(
-                            "Army",
-                            _gridManager.BaseCubeList[i].transform.position,
-                            Quaternion.identity,
-                            armyHolder.transform);
-                        army.transform.position += new Vector3(Random.Range(0.1f,0.25f),-1,Random.Range(0.1f,1));
-                        
-                        army.GetComponent<ArmyMovementController>().Move();
-                        ArmyList.Add(army);
-                    }
+                    army.GetComponent<ArmyMovementController>().Move();
+                    ArmyList.Add(army);
                 }
             }
+        }
+
+        public IEnumerator SpawnArmyInIncrementCube(IncrementCubes ıncrementCubes)
+        {
+             for (int i = 0; i < ıncrementCubes.CubeValue; i++)
+             {
+                GameObject army = _objectPooler.SpawnFromPool(
+                    "Army", 
+                    ıncrementCubes.transform.position,
+                    Quaternion.identity,
+                    armyHolder.transform);
+                army.transform.position -= new Vector3(Random.Range(-0.25f,0.25f),1,Random.Range(0f,1.5f));
+                        
+                army.GetComponent<ArmyMovementController>().Move();
+                ArmyList.Add(army);
+                yield return new WaitForSeconds(0.1f);
+             }
         }
         public void ArmyCheck()
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Controllers.Cube;
 using Enums;
 using Managers;
 using Signals;
@@ -10,11 +12,13 @@ namespace Controllers.Army
     {
         
         private ArmyManager _armyManager;
-        
 
+        private TetrisBlockSpawner _tetrisBlockSpawner;
+        
         private void Awake()
         {
             _armyManager = FindObjectOfType<ArmyManager>();
+            _tetrisBlockSpawner = FindObjectOfType <TetrisBlockSpawner>();
         }
 
 
@@ -34,10 +38,22 @@ namespace Controllers.Army
                 _armyManager.ArmyCheck();
             }
             
-            if (other.CompareTag("OurCube"))
+            if (other.TryGetComponent(out IncrementCubes ıncrementCubes))
             {
-                //küpler scale olabilir
+                StartCoroutine(_armyManager.SpawnArmyInIncrementCube(ıncrementCubes));
+                ColliderEnabled(other);
             }
+        }
+
+        private async void ColliderEnabled(Collider collider)
+        {
+            collider.enabled = false;
+            await Task.Delay(5000);
+            if (collider != null)
+            {
+                collider.enabled = true;
+            }
+            
         }
     }
 }

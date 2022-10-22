@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   valueText: {fileID: 9219816181663819180}
+  BaseCubeTilePosition: {x: 0, y: 0}
 --- !u!1001 &3936113292582606859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30,27 +31,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.8419
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.7084
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0082
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.0046
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.025
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 5290814599278116263, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_fontSize
-      value: 4.95
+      value: 2.9
       objectReference: {fileID: 0}
     - target: {fileID: 5290814599278116263, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_fontSizeMin

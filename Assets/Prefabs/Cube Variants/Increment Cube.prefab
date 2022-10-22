@@ -28,7 +28,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1461453534589468924, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: IncrementCube
       objectReference: {fileID: 0}
     - target: {fileID: 3704589455061092362, guid: c873c5feb6685bf43a483c0115b3bbff, type: 3}
       propertyPath: m_SizeDelta.x

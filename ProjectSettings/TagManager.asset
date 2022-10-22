@@ -9,7 +9,7 @@ TagManager:
   - EnemyCube
   - EnemyBase
   - ArmyHolder
-  - OurCube
+  - IncrementCube
   layers:
   - Default
   - TransparentFX
