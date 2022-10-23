@@ -110,8 +110,8 @@ namespace Managers
             }
             _moneyData.BaseCubeValue += 1;
             BaseCubeSignals.Instance.onBaseCubePowerIncrease?.Invoke();
-            _moneyData.PowerMoneyDecrease += 100;
             _moneyData.TotalMoney -= _moneyData.PowerMoneyDecrease;
+            _moneyData.PowerMoneyDecrease += _moneyData.PowerMoneyDecrease;
             _moneyData.PowerLevel += 1;
 
             powerButtonCoinText.text = _moneyData.PowerMoneyDecrease.ToString();
@@ -125,9 +125,9 @@ namespace Managers
             {
                 return;
             }
-            _moneyData.GainMoney += _moneyData.GainMoney / 10;
-            _moneyData.GainCoinDecrease += 100;
+            _moneyData.GainMoney += 1;
             _moneyData.TotalMoney -= _moneyData.GainCoinDecrease;
+            _moneyData.GainCoinDecrease += _moneyData.GainCoinDecrease;
             _moneyData.GainCoinLevel += 1;
 
             coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();

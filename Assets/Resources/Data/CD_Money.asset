@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CD_Money
   m_EditorClassIdentifier: 
   MoneyData:
-    TotalMoney: 0
-    GainMoney: 10
+    TotalMoney: 100
+    GainMoney: 1
     BaseCubeValue: 1
-    PowerMoneyDecrease: 100
+    PowerMoneyDecrease: 20
     PowerLevel: 1
     GainCoinLevel: 1
-    GainCoinDecrease: 100
+    GainCoinDecrease: 20
