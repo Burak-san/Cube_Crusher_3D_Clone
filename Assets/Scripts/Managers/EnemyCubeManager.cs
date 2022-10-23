@@ -5,13 +5,15 @@ using Enums;
 using Signals;
 using UnityEngine;
 
-
 namespace Managers
 {
     public class EnemyCubeManager : MonoBehaviour
     {
         [SerializeField] private List<EnemyCube> enemyCubeList = new List<EnemyCube>();
         [SerializeField] private Transform enemyCubeHolder;
+
+        public int LeftCubeCount { get; private set; } = 30;
+        public int SpawnCubeCount { get; private set; }
         private GridManager _gridManager;
         
         private ObjectPooler _objectPooler;
@@ -20,11 +22,13 @@ namespace Managers
         {
             _objectPooler = FindObjectOfType<ObjectPooler>();
             _gridManager = FindObjectOfType<GridManager>();
+            SpawnCubeCount = LeftCubeCount;
         }
 
         private void Start()
         {
             EnemyCubeGetFromPool();
+            UISignals.Instance.onSetLeftText?.Invoke(LeftCubeCount);
         }
 
         private void OnEnable()
@@ -91,20 +95,27 @@ namespace Managers
 
         public void RemoveEnemyCubeList(EnemyCube enemyCube)
         {
-            if (enemyCube.EnemyCubeTilePosition.y <=3)
+            if (enemyCube.EnemyCubeTilePosition.y <=4)
             {
                 _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].IsPlaceable = true;
                 _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].IsEnemyTile = false;
             }
             _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].HeldCube = null;
             enemyCubeList.Remove(enemyCube);
+            LeftCubeCount--;
+            UISignals.Instance.onSetLeftText?.Invoke(LeftCubeCount);
+            if (LeftCubeCount <= 0 && SpawnCubeCount <= 0)
+            {
+                //Game end signal here
+            }
         }
-        
 
         private void EnemyCubeGetFromPool()
         {
             for (int i = 0; i < _gridManager.Nodes.GetLength(0); i++)
             {
+                if (SpawnCubeCount <= 0) return;
+                
                 int spawnPointY = _gridManager.Nodes.GetLength(1) - 1;
                 EnemyCube EnemyCube = _objectPooler.SpawnFromPool(
                     "EnemyCube",
@@ -117,6 +128,7 @@ namespace Managers
                 _gridManager.Nodes[i, spawnPointY].IsPlaceable = false;
                 _gridManager.Nodes[i, spawnPointY].SnapPoint();
                 enemyCubeList.Add(EnemyCube);
+                SpawnCubeCount--;
             }
         }
         
