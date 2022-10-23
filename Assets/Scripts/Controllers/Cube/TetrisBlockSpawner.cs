@@ -49,7 +49,7 @@ namespace Controllers.Cube
         
         private void OnChangeGameState(GameStates currentState)
         {
-            if (currentState == GameStates.EnemyMovePhase)
+            if (currentState == GameStates.EnemySpawnPhase)
             {
                 DetectSpawnableBlocks();
                 RandomSpawnBlock();

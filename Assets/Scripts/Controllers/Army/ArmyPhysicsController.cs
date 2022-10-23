@@ -1,7 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Controllers.Cube;
-using Enums;
+using Data.ValueObject;
 using Managers;
 using Signals;
 using UnityEngine;
@@ -10,15 +9,12 @@ namespace Controllers.Army
 {
     public class ArmyPhysicsController : MonoBehaviour
     {
-        
         private ArmyManager _armyManager;
-
-        private TetrisBlockSpawner _tetrisBlockSpawner;
+        private MoneyData _moneyData;
         
         private void Awake()
         {
             _armyManager = FindObjectOfType<ArmyManager>();
-            _tetrisBlockSpawner = FindObjectOfType <TetrisBlockSpawner>();
         }
 
 
@@ -36,6 +32,7 @@ namespace Controllers.Army
             {
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
+                UISignals.Instance.onSetCoinText?.Invoke();
             }
             
             if (other.TryGetComponent(out IncrementCubes ıncrementCubes))

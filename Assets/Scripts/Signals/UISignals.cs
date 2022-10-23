@@ -10,6 +10,6 @@ namespace Signals
         public UnityAction<UIPanels> onClosePanel = delegate {  };
         public UnityAction<int> onSetLevelText = delegate {  };
         public UnityAction<int> onSetLeftText = delegate {  };
-        public UnityAction<int> onSetCoinText = delegate {  };
+        public UnityAction onSetCoinText = delegate {  };
     }
 }

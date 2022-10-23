@@ -11,7 +11,6 @@ namespace Managers
     public class EnemyCubeManager : MonoBehaviour
     {
         [SerializeField] private List<EnemyCube> enemyCubeList = new List<EnemyCube>();
-        [SerializeField] private List<Transform> enemyCubeSpawnTransformList = new List<Transform>();
         [SerializeField] private Transform enemyCubeHolder;
         private GridManager _gridManager;
         
@@ -53,9 +52,13 @@ namespace Managers
         {
             if (currentState == GameStates.EnemyMovePhase)
             {
+                if (enemyCubeList.Count == 0)
+                {
+                    EnemySpawnPhase();
+                    return;
+                }
                 EnemyCubeMove();
-                EnemySpawnPhaseSignal();
-                
+                EnemySpawnPhase();
             }
              
             if (currentState == GameStates.EnemySpawnPhase)
@@ -65,7 +68,7 @@ namespace Managers
             }
         }
 
-        private async void EnemySpawnPhaseSignal()
+        private async void EnemySpawnPhase()
         {
             await Task.Delay(1000);
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.EnemySpawnPhase);

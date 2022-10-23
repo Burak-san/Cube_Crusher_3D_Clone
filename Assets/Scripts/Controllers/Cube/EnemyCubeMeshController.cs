@@ -64,7 +64,7 @@ namespace Controllers.Cube
         {
             float tempScale = _scale - 0.1f;
             _scale = tempScale;
-            transform.DOScaleY(tempScale, 0.1f).SetEase(Ease.OutElastic);
+            transform.DOScaleY(tempScale, 0.001f).SetEase(Ease.OutElastic).From(_scale);
             GetMaterial();
             if (_scale <= 0)
             {

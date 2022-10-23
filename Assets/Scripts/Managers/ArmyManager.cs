@@ -70,7 +70,7 @@ namespace Managers
                         _gridManager.BaseCubeList[i].transform.position,
                         Quaternion.identity,
                         armyHolder.transform);
-                    army.transform.position -= new Vector3(Random.Range(-0.25f,0.25f),1,Random.Range(0.1f,1.5f));
+                    army.transform.position -= new Vector3(Random.Range(-0.25f,0.25f),1,Random.Range(-0.5f,1.9f));
                         
                     army.GetComponent<ArmyMovementController>().Move();
                     ArmyList.Add(army);

@@ -26,7 +26,7 @@ namespace Controllers.Cube
                 if (_gridManager.Nodes[newPosition.x, newPosition.y].HeldCube == null)
                 {
                     MoveActions(newPosition);
-                    
+
                     transform.DOMove(transform.position + Vector3.back, 1, false);
                 }
                 else if(_gridManager.Nodes[newPosition.x, newPosition.y].HeldCube.TryGetComponent(out IncrementCubes _))
@@ -44,7 +44,7 @@ namespace Controllers.Cube
                 else
                 {
                     MoveActions(newPosition);
-                    
+
                     transform.DOMove(transform.position + Vector3.back, 1, false);
                 }
         }

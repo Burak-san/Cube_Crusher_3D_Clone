@@ -1,6 +1,9 @@
 ﻿using Controllers.UI;
+using Data.UnityObject;
+using Data.ValueObject;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
@@ -11,12 +14,45 @@ namespace Managers
         #region Serialized Variables
 
         [SerializeField] private UIPanelController uiPanelController;
+        
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI leftText;
         [SerializeField] private TextMeshProUGUI coinText;
+        
+        [SerializeField] private TextMeshProUGUI powerButtonLevelText;
+        [SerializeField] private TextMeshProUGUI powerButtonCoinText;
+        
+        [SerializeField] private TextMeshProUGUI coinButtonLevelText;
+        [SerializeField] private TextMeshProUGUI coinButtonCoinText;
 
         #endregion
 
+        #region Private Variables
+
+        [ShowInInspector]private MoneyData _moneyData;
+        private GameManager _gameManager;
+
+        #endregion
+        
+        private void Awake()
+        {
+            GetDataResources();
+        }
+
+        private void GetDataResources()
+        {
+            _moneyData = GetMoneyData();
+            _gameManager = FindObjectOfType<GameManager>();
+            coinText.text = _moneyData.TotalMoney.ToString();
+            powerButtonLevelText.text = "Level " + _moneyData.PowerLevel.ToString();
+            powerButtonCoinText.text = _moneyData.PowerMoneyDecrease.ToString();
+            coinButtonLevelText.text = "Level " + _moneyData.GainCoinLevel.ToString();
+            coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();
+        }
+        
+
+        private MoneyData GetMoneyData() => Resources.Load<CD_Money>("Data/CD_Money").MoneyData;
+        
         #region Event Subscriptions
 
         private void OnEnable()
@@ -34,11 +70,10 @@ namespace Managers
 
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
-            CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
-
+            
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
         }
-        
+
         private void UnSubscribeEvents()
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
@@ -46,10 +81,9 @@ namespace Managers
             UISignals.Instance.onSetLevelText -= OnSetLevelText;
             UISignals.Instance.onSetLeftText -= OnSetLeftText;
             UISignals.Instance.onSetCoinText -= OnSetCoinText;
-            
+
             CoreGameSignals.Instance.onPlay -= OnPlay;
             CoreGameSignals.Instance.onReset -= OnReset;
-            CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
 
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
         }
@@ -60,18 +94,46 @@ namespace Managers
         }
         
         #endregion
-
-        private GameManager _gameManager;
         
-        private void Awake()
-        {
-            _gameManager = FindObjectOfType<GameManager>();
-        }
 
         public void PlayButton()
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.Playing);
+        }
+
+        public void BaseCubePowerIncrease()
+        {
+            if (_moneyData.TotalMoney - _moneyData.PowerMoneyDecrease < 0)
+            {
+                return;
+            }
+            _moneyData.BaseCubeValue += 1;
+            BaseCubeSignals.Instance.onBaseCubePowerIncrease?.Invoke();
+            _moneyData.PowerMoneyDecrease += 100;
+            _moneyData.TotalMoney -= _moneyData.PowerMoneyDecrease;
+            _moneyData.PowerLevel += 1;
+
+            powerButtonCoinText.text = _moneyData.PowerMoneyDecrease.ToString();
+            powerButtonLevelText.text = "Level " + _moneyData.PowerLevel.ToString();
+            coinText.text = _moneyData.TotalMoney.ToString();
+        }
+
+        public void GainMoneyIncrease()
+        {
+            if (_moneyData.TotalMoney - _moneyData.GainCoinDecrease < 0)
+            {
+                return;
+            }
+            _moneyData.GainMoney += _moneyData.GainMoney / 10;
+            _moneyData.GainCoinDecrease += 100;
+            _moneyData.TotalMoney -= _moneyData.GainCoinDecrease;
+            _moneyData.GainCoinLevel += 1;
+
+            coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();
+            coinButtonLevelText.text = "Level " + _moneyData.GainCoinLevel.ToString();
+            coinText.text = _moneyData.TotalMoney.ToString();
+            
         }
 
         public void RestartButton()
@@ -95,10 +157,6 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.StartPanel);
         }
         
-        private void OnChangeGameState(GameStates currentState)
-        {
-            
-        }
         
         private void OnSetLevelText(int levelID)
         {
@@ -118,9 +176,10 @@ namespace Managers
             leftText.text = "Left: " + leftTextValue.ToString();
         }
         
-        private void OnSetCoinText(int coinTextValue)
+        private void OnSetCoinText()
         {
-            coinText.text = coinTextValue.ToString();
+            _moneyData.TotalMoney += _moneyData.GainMoney;
+            coinText.text = _moneyData.TotalMoney.ToString();
         }
         
         private void OnLevelFailed()
