@@ -1,6 +1,6 @@
 ﻿namespace Data.ValueObject
 {
-    public class ArmyData
+    public class EnemyData
     {
         
     }

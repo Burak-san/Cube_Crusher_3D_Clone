@@ -72,6 +72,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset += OnReset;
             
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
+            LevelSignals.Instance.onNextLevel += OnNextLevel;
         }
 
         private void UnSubscribeEvents()
@@ -86,6 +87,7 @@ namespace Managers
             CoreGameSignals.Instance.onReset -= OnReset;
 
             LevelSignals.Instance.onLevelFailed -= OnLevelFailed;
+            LevelSignals.Instance.onNextLevel -= OnNextLevel;
         }
 
         private void OnDisable()
@@ -135,12 +137,19 @@ namespace Managers
             coinText.text = _moneyData.TotalMoney.ToString();
             
         }
-
         public void RestartButton()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);
             CoreGameSignals.Instance.onReset?.Invoke();
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameOpen);
+        }
+
+        public void NextLevelButton()
+        {
+            UISignals.Instance.onClosePanel?.Invoke(UIPanels.WinPanel);
+            CoreGameSignals.Instance.onReset?.Invoke();
+            CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameOpen);
+            
         }
         private void OnOpenPanel(UIPanels panel)
         {
@@ -186,9 +195,17 @@ namespace Managers
         {
             OnOpenPanel(UIPanels.FailPanel);
         }
-        
+
+        private void OnNextLevel()
+        {
+            OnOpenPanel(UIPanels.WinPanel);
+        }
+
         private void OnReset()
         {
+            LevelSignals.Instance.onClearActiveLevel?.Invoke();
+            LevelSignals.Instance.onLevelInitialize?.Invoke();
+            
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.StartPanel);
             UISignals.Instance.onOpenPanel?.Invoke(UIPanels.LevelPanel);
         }

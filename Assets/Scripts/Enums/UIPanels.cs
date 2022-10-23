@@ -4,6 +4,7 @@
     {
         StartPanel,
         LevelPanel,
-        FailPanel
+        FailPanel,
+        WinPanel
     }
 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Controllers.Cube;
 using Enums;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Managers
@@ -12,8 +13,8 @@ namespace Managers
         [SerializeField] private List<EnemyCube> enemyCubeList = new List<EnemyCube>();
         [SerializeField] private Transform enemyCubeHolder;
 
-        public int LeftCubeCount { get; private set; } = 30;
-        public int SpawnCubeCount { get; private set; }
+        [ShowInInspector]private int _leftCubeCount;
+        [ShowInInspector]private int _spawnCubeCount;
         private GridManager _gridManager;
         
         private ObjectPooler _objectPooler;
@@ -22,13 +23,14 @@ namespace Managers
         {
             _objectPooler = FindObjectOfType<ObjectPooler>();
             _gridManager = FindObjectOfType<GridManager>();
-            SpawnCubeCount = LeftCubeCount;
+            _leftCubeCount = 30;
+            _spawnCubeCount = _leftCubeCount;
         }
 
         private void Start()
         {
             EnemyCubeGetFromPool();
-            UISignals.Instance.onSetLeftText?.Invoke(LeftCubeCount);
+            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
         }
 
         private void OnEnable()
@@ -39,11 +41,13 @@ namespace Managers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onChangeGameState += OnChangeGameState;
+            CoreGameSignals.Instance.onReset += OnReset;
             EnemyCubeSignals.Instance.onHitEnemyCube += OnHitEnemyCube;
         }
         private void UnSubscribeEvents()
         {
             CoreGameSignals.Instance.onChangeGameState -= OnChangeGameState;
+            CoreGameSignals.Instance.onReset -= OnReset;
             EnemyCubeSignals.Instance.onHitEnemyCube -= OnHitEnemyCube;
         }
         
@@ -102,11 +106,12 @@ namespace Managers
             }
             _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].HeldCube = null;
             enemyCubeList.Remove(enemyCube);
-            LeftCubeCount--;
-            UISignals.Instance.onSetLeftText?.Invoke(LeftCubeCount);
-            if (LeftCubeCount <= 0 && SpawnCubeCount <= 0)
+            _leftCubeCount--;
+            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
+            if (_leftCubeCount <= 0 && _spawnCubeCount <= 0)
             {
-                //Game end signal here
+                UISignals.Instance.onOpenPanel?.Invoke(UIPanels.WinPanel);
+                UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
             }
         }
 
@@ -114,7 +119,7 @@ namespace Managers
         {
             for (int i = 0; i < _gridManager.Nodes.GetLength(0); i++)
             {
-                if (SpawnCubeCount <= 0) return;
+                if (_spawnCubeCount <= 0) return;
                 
                 int spawnPointY = _gridManager.Nodes.GetLength(1) - 1;
                 EnemyCube EnemyCube = _objectPooler.SpawnFromPool(
@@ -128,13 +133,21 @@ namespace Managers
                 _gridManager.Nodes[i, spawnPointY].IsPlaceable = false;
                 _gridManager.Nodes[i, spawnPointY].SnapPoint();
                 enemyCubeList.Add(EnemyCube);
-                SpawnCubeCount--;
+                _spawnCubeCount--;
             }
         }
         
         public void ReturnToPoolArmy(GameObject enemyCube)
         {
             _objectPooler.ReturnToPool("EnemyCube",enemyCube);
+        }
+
+        private void OnReset()
+        {
+            Debug.Log("Enemycube reset");
+            _leftCubeCount += 5;
+            _spawnCubeCount = _leftCubeCount;
+            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
         }
     }
 }
