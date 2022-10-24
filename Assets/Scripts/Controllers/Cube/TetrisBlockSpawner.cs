@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Enums;
 using Managers;
 using Signals;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,7 +14,7 @@ namespace Controllers.Cube
         [SerializeField] private List<TetrisBlockManager> tetrisBlockList;
         private GridManager _gridManager;
         private List<TetrisBlockManager> _spawnList = new List<TetrisBlockManager>();
-        private TetrisBlockManager spawningObject;
+        [ShowInInspector]private TetrisBlockManager spawningObject;
 
         private void Awake()
         {
@@ -54,6 +55,8 @@ namespace Controllers.Cube
                 RandomSpawnBlock();
             }
         }
+
+        
 
 
         public bool SpawnCheck(Vector2Int checkingTileIndex, CubeTransform[] cubePositions)
@@ -99,7 +102,7 @@ namespace Controllers.Cube
 
         private void RandomSpawnBlock()
         {
-            spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]);
+            spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]); 
             spawningObject.transform.position = transform.position;
         }
     }

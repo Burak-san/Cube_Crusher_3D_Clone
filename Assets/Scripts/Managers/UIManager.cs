@@ -74,7 +74,6 @@ namespace Managers
             LevelSignals.Instance.onLevelFailed += OnLevelFailed;
             LevelSignals.Instance.onNextLevel += OnNextLevel;
         }
-
         private void UnSubscribeEvents()
         {
             UISignals.Instance.onOpenPanel -= OnOpenPanel;
@@ -149,8 +148,8 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.WinPanel);
             CoreGameSignals.Instance.onReset?.Invoke();
             CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameOpen);
-            
         }
+        
         private void OnOpenPanel(UIPanels panel)
         {
             uiPanelController.OpenPanel(panel);

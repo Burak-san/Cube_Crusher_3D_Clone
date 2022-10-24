@@ -9,6 +9,5 @@ namespace Enums
         AttackPhase,
         EnemyMovePhase,
         EnemySpawnPhase,
-        
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Controllers.Cube;
+using Data.UnityObject;
+using Data.ValueObject;
 using Enums;
 using Signals;
 using Sirenix.OdinInspector;
@@ -13,25 +15,36 @@ namespace Managers
         [SerializeField] private List<EnemyCube> enemyCubeList = new List<EnemyCube>();
         [SerializeField] private Transform enemyCubeHolder;
 
-        [ShowInInspector]private int _leftCubeCount;
-        [ShowInInspector]private int _spawnCubeCount;
+        private EnemyData _data;
         private GridManager _gridManager;
-        
         private ObjectPooler _objectPooler;
+        private int _leftCubeIncrease;
         
         private void Awake()
         {
-            _objectPooler = FindObjectOfType<ObjectPooler>();
-            _gridManager = FindObjectOfType<GridManager>();
-            _leftCubeCount = 30;
-            _spawnCubeCount = _leftCubeCount;
+            GetDataResources();
         }
 
+        private void GetDataResources()
+        {
+            _objectPooler = FindObjectOfType<ObjectPooler>();
+            _gridManager = FindObjectOfType<GridManager>();
+            
+            _leftCubeIncrease = 5;
+            
+            _data = GetEnemyData();
+            
+            _data.SpawnCubeCount = _data.LeftCubeCount;
+        }
+        
         private void Start()
         {
             EnemyCubeGetFromPool();
-            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
+            UISignals.Instance.onSetLeftText?.Invoke(_data.LeftCubeCount);
         }
+        
+        private EnemyData GetEnemyData() => Resources.Load<CD_Enemy>("Data/CD_Enemy").EnemyData;
+
 
         private void OnEnable()
         {
@@ -55,6 +68,7 @@ namespace Managers
         {
             UnSubscribeEvents();
         }
+
 
         private void OnChangeGameState(GameStates currentState)
         {
@@ -106,9 +120,9 @@ namespace Managers
             }
             _gridManager.Nodes[enemyCube.EnemyCubeTilePosition.x, enemyCube.EnemyCubeTilePosition.y].HeldCube = null;
             enemyCubeList.Remove(enemyCube);
-            _leftCubeCount--;
-            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
-            if (_leftCubeCount <= 0 && _spawnCubeCount <= 0)
+            _data.LeftCubeCount--;
+            UISignals.Instance.onSetLeftText?.Invoke(_data.LeftCubeCount);
+            if (_data.LeftCubeCount <= 0 && _data.SpawnCubeCount <= 0)
             {
                 UISignals.Instance.onOpenPanel?.Invoke(UIPanels.WinPanel);
                 UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
@@ -119,7 +133,7 @@ namespace Managers
         {
             for (int i = 0; i < _gridManager.Nodes.GetLength(0); i++)
             {
-                if (_spawnCubeCount <= 0) return;
+                if (_data.SpawnCubeCount <= 0) return;
                 
                 int spawnPointY = _gridManager.Nodes.GetLength(1) - 1;
                 EnemyCube EnemyCube = _objectPooler.SpawnFromPool(
@@ -133,7 +147,7 @@ namespace Managers
                 _gridManager.Nodes[i, spawnPointY].IsPlaceable = false;
                 _gridManager.Nodes[i, spawnPointY].SnapPoint();
                 enemyCubeList.Add(EnemyCube);
-                _spawnCubeCount--;
+                _data.SpawnCubeCount--;
             }
         }
         
@@ -142,12 +156,17 @@ namespace Managers
             _objectPooler.ReturnToPool("EnemyCube",enemyCube);
         }
 
+        private void GetLeftCubeCount()
+        {
+            _data.TempLeftCubeCount += _leftCubeIncrease;
+            _data.LeftCubeCount = _data.TempLeftCubeCount;
+            _data.SpawnCubeCount = _data.LeftCubeCount;
+        }
+        
         private void OnReset()
         {
-            Debug.Log("Enemycube reset");
-            _leftCubeCount += 5;
-            _spawnCubeCount = _leftCubeCount;
-            UISignals.Instance.onSetLeftText?.Invoke(_leftCubeCount);
+            GetLeftCubeCount();
+            UISignals.Instance.onSetLeftText?.Invoke(_data.LeftCubeCount);
         }
     }
 }
