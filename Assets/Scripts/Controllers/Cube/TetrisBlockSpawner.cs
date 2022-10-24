@@ -15,6 +15,7 @@ namespace Controllers.Cube
         private GridManager _gridManager;
         private List<TetrisBlockManager> _spawnList = new List<TetrisBlockManager>();
         [ShowInInspector]private TetrisBlockManager spawningObject;
+        private GameStates _gameStates;
 
         private void Awake()
         {
@@ -49,6 +50,11 @@ namespace Controllers.Cube
         
         private void OnChangeGameState(GameStates currentState)
         {
+            if (currentState == GameStates.GameStop)
+            {
+                _gameStates = currentState;
+            }
+            
             if (currentState == GameStates.EnemySpawnPhase)
             {
                 DetectSpawnableBlocks();
@@ -102,6 +108,10 @@ namespace Controllers.Cube
 
         private void RandomSpawnBlock()
         {
+            if (_gameStates == GameStates.GameStop)
+            {
+                return;
+            }
             spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]); 
             spawningObject.transform.position = transform.position;
         }

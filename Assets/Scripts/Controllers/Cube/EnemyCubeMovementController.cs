@@ -61,6 +61,7 @@ namespace Controllers.Cube
             {
                 UISignals.Instance.onOpenPanel?.Invoke(UIPanels.FailPanel);
                 UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
+                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameStop);
             }
         }
     }

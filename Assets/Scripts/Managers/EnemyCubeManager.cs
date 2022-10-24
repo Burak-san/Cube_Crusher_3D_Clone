@@ -126,6 +126,7 @@ namespace Managers
             {
                 UISignals.Instance.onOpenPanel?.Invoke(UIPanels.WinPanel);
                 UISignals.Instance.onClosePanel?.Invoke(UIPanels.LevelPanel);
+                CoreGameSignals.Instance.onChangeGameState?.Invoke(GameStates.GameStop);
             }
         }
 

@@ -9,5 +9,6 @@ namespace Enums
         AttackPhase,
         EnemyMovePhase,
         EnemySpawnPhase,
+        GameStop
     }
 }
