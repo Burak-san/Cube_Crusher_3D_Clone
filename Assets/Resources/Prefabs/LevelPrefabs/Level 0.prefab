@@ -776,7 +776,7 @@ GameObject:
   - component: {fileID: 7136246760348560468}
   - component: {fileID: 7136246760348560467}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: TetrisCubeSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,3 +884,4 @@ MonoBehaviour:
   - {fileID: 4337711730542182965, guid: a03f9401704f5f240a896d1da0e703ec, type: 3}
   - {fileID: 8415835180127038772, guid: e77dec861726ee640bacaef66dbff027, type: 3}
   - {fileID: 1548907014986972589, guid: d19ae712fdb58c842872d70aa10ff027, type: 3}
+  tetrisCubeHolder: {fileID: 8967308831724533308}

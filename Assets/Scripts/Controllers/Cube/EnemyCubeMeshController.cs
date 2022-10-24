@@ -66,7 +66,7 @@ namespace Controllers.Cube
             _scale = tempScale;
             transform.DOScaleY(tempScale, 0.001f).SetEase(Ease.OutElastic).From(_scale);
             GetMaterial();
-            if (_scale <= 0)
+            if (_scale <= 0.2)
             {
                 _enemyCubeManager.RemoveEnemyCubeList(GetComponentInParent<EnemyCube>());
                 _enemyCubeManager.ReturnToPoolArmy(transform.parent.gameObject);

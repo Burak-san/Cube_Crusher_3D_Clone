@@ -16,6 +16,7 @@ namespace Controllers.Cube
         private List<TetrisBlockManager> _spawnList = new List<TetrisBlockManager>();
         [ShowInInspector]private TetrisBlockManager spawningObject;
         private GameStates _gameStates;
+        [SerializeField] private Transform tetrisCubeHolder;
 
         private void Awake()
         {
@@ -114,6 +115,7 @@ namespace Controllers.Cube
             }
             spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]); 
             spawningObject.transform.position = transform.position;
+            spawningObject.transform.SetParent(tetrisCubeHolder);
         }
     }
 }
