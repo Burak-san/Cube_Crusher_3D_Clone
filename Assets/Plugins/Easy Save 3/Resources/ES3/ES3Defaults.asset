@@ -34,8 +34,14 @@ MonoBehaviour:
     - Assembly-CSharp
     - Sirenix.OdinInspector.CompatibilityLayer
     - Hierarchy2.Runtime
+    - CFXRRuntime
+    - CFXRDemo
+    - KinoBloom.Runtime
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - Hierarchy2.Editor
+    - CFXR.WelcomeScreen
+    - CFXREditor
+    - ToonyColorsPro.Demo.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

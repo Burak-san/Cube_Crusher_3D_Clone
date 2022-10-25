@@ -22,6 +22,7 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
+                ParticleSignals.Instance.onHitEnemyCube.Invoke(other.transform.position);
                 EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
@@ -30,6 +31,7 @@ namespace Controllers.Army
 
             if (other.CompareTag("EnemyBase"))
             {
+                ParticleSignals.Instance.onHitEnemyBaseCube.Invoke(other.transform.position);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
                 UISignals.Instance.onSetCoinText?.Invoke();

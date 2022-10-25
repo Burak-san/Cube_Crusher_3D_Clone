@@ -10,6 +10,9 @@ TagManager:
   - EnemyBase
   - ArmyHolder
   - IncrementCube
+  - FxTemporaire
+  - ArmyHitEnemyBaseParticle
+  - ArmyHitEnemyCubeParticle
   layers:
   - Default
   - TransparentFX
