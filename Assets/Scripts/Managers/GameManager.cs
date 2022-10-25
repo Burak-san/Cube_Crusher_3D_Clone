@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
         GameClose();
     }
     
+    #endregion
+    
     private void OnChangeGameState(GameStates newCurrentState)
     {
         CurrentState = newCurrentState;
@@ -51,20 +53,16 @@ public class GameManager : MonoBehaviour
         CurrentState = GameStates.GameOpen;
         CoreGameSignals.Instance.onGameOpen?.Invoke();
     }
+    
     private void GameClose()
     {
         CoreGameSignals.Instance.onGameClose?.Invoke();
     }
-    
 
-    #endregion
-    
     private void OnPlay()
     {
         CurrentState = GameStates.GameOpen;
     }
-    
-    
 }
 
 

@@ -113,6 +113,5 @@ namespace Managers
             LevelSignals.Instance.onLevelInitialize?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
         }
-
     }
 }

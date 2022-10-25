@@ -134,7 +134,6 @@ namespace Managers
             coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();
             coinButtonLevelText.text = "Level " + _moneyData.GainCoinLevel.ToString();
             coinText.text = _moneyData.TotalMoney.ToString();
-            
         }
         public void RestartButton()
         {
@@ -165,7 +164,6 @@ namespace Managers
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.StartPanel);
         }
         
-        
         private void OnSetLevelText(int levelID)
         {
             if (levelID == 0)
@@ -188,6 +186,7 @@ namespace Managers
         {
             _moneyData.TotalMoney += _moneyData.GainMoney;
             coinText.text = _moneyData.TotalMoney.ToString();
+            
         }
         
         private void OnLevelFailed()

@@ -54,7 +54,7 @@ MonoBehaviour:
     prefab: {fileID: 100000, guid: f2dba9e16cd347f44a395b8204544ee5, type: 3}
     size: 100
   - tag: ArmyHitEnemyBaseParticle
-    prefab: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+    prefab: {fileID: 5937753836650821169, guid: 26eb389aec7281d4fbda7db9792753bd, type: 3}
     size: 100
 --- !u!1 &1673891857
 GameObject:

@@ -22,16 +22,17 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
-                ParticleSignals.Instance.onHitEnemyCube.Invoke(other.transform.position);
+                ParticleSignals.Instance.onHitEnemyCube.Invoke(transform.position);
                 EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
+                
             }
             
 
             if (other.CompareTag("EnemyBase"))
             {
-                ParticleSignals.Instance.onHitEnemyBaseCube.Invoke(other.transform.position);
+                ParticleSignals.Instance.onHitEnemyBaseCube.Invoke(transform.position);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
                 UISignals.Instance.onSetCoinText?.Invoke();

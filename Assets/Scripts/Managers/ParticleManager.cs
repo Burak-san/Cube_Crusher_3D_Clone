@@ -53,7 +53,7 @@ namespace Managers
 
         private void GetEnemyCubeHitParticleFromPool(Vector3 _transform,string particlePoolTag)
         {   
-            ParticleSystem Particle = _objectPooler.SpawnFromPool(particlePoolTag, _transform + new Vector3(0,0,-.75f), Quaternion.identity,transform).GetComponent<ParticleSystem>();
+            ParticleSystem Particle = _objectPooler.SpawnFromPool(particlePoolTag, _transform + new Vector3(0,0,-.5f), Quaternion.identity,transform).GetComponent<ParticleSystem>();
             Particle.Play();
             ReturnToPool(Particle,particlePoolTag);
         }
