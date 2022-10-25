@@ -1,19 +1,34 @@
 ﻿using System;
+using Managers;
 
 namespace Data.ValueObject
 {
     [Serializable]
     public class MoneyData
     {
-        public int TotalMoney = 500;
+        public int TotalMoney ;
         
-        public int GainMoney = 10;
-        public int BaseCubeValue = 1;
+        public int GainMoney ;
+        public int BaseCubeValue;
         
-        public int PowerMoneyDecrease = 100;
-        public int PowerLevel = 1;
+        public int PowerMoneyDecrease;
+        public int PowerLevel ;
         
-        public int GainCoinLevel = 1;
-        public int GainCoinDecrease = 100;
+        public int GainCoinLevel ;
+        public int GainCoinDecrease ;
+        public void InitializeMoneyData()
+        {
+            TotalMoney = SaveLoadManager.LoadValue("TotalMoney", 500);
+            GainMoney = SaveLoadManager.LoadValue("GainMoney", 10);
+            BaseCubeValue = SaveLoadManager.LoadValue("BaseCubeValue", 1);
+            PowerMoneyDecrease = SaveLoadManager.LoadValue("PowerMoneyDecrease", 100);
+            PowerLevel = SaveLoadManager.LoadValue("PowerLevel", 1);
+            GainCoinLevel = SaveLoadManager.LoadValue("GainCoinLevel", 1);
+            GainCoinDecrease = SaveLoadManager.LoadValue("GainCoinDecrease", 100);
+        }
+        
+        
     }
+    
+    
 }

@@ -12,7 +12,7 @@ namespace Managers
 
         private void Awake()
         {
-            _objectPooler = FindObjectOfType<ObjectPooler>();
+           // _objectPooler = FindObjectOfType<ObjectPooler>();
         }
 
         #region Event Subscription
@@ -41,27 +41,27 @@ namespace Managers
         
         private void OnHitEnemyCube(Vector3 transformHit)
         {
-            particlePoolTag = "ArmyHitEnemyCubeParticle";
-            GetEnemyCubeHitParticleFromPool(transformHit,particlePoolTag);
+          //  particlePoolTag = "ArmyHitEnemyCubeParticle";
+          //  GetEnemyCubeHitParticleFromPool(transformHit,particlePoolTag);
         }
 
         private void OnHitEnemyBaseCube(Vector3 transformHit)
         {
-            particlePoolTag = "ArmyHitEnemyBaseParticle";
-            GetEnemyCubeHitParticleFromPool(transformHit,particlePoolTag);
+          //  particlePoolTag = "ArmyHitEnemyBaseParticle";
+          //  GetEnemyCubeHitParticleFromPool(transformHit,particlePoolTag);
         }
 
         private void GetEnemyCubeHitParticleFromPool(Vector3 _transform,string particlePoolTag)
         {   
-            ParticleSystem Particle = _objectPooler.SpawnFromPool(particlePoolTag, _transform + new Vector3(0,0,-.5f), Quaternion.identity,transform).GetComponent<ParticleSystem>();
-            Particle.Play();
-            ReturnToPool(Particle,particlePoolTag);
+           // ParticleSystem Particle = _objectPooler.SpawnFromPool(particlePoolTag, _transform + new Vector3(0,0,-.5f), Quaternion.identity,transform).GetComponent<ParticleSystem>();
+           // Particle.Play();
+          //  ReturnToPool(Particle,particlePoolTag);
         }
         
-        public async void ReturnToPool(ParticleSystem particle, string particlePoolTag)
-        {
-            await Task.Delay(250);
-            _objectPooler.ReturnToPool(particlePoolTag,particle.gameObject);
-        }
+       public async void ReturnToPool(ParticleSystem particle, string particlePoolTag)
+       {
+      //     await Task.Delay(250);
+      //     _objectPooler.ReturnToPool(particlePoolTag,particle.gameObject);
+       }
     }
 }

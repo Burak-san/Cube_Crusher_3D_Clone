@@ -42,12 +42,13 @@ namespace Managers
         private void GetDataResources()
         {
             _moneyData = GetMoneyData();
+            _moneyData.InitializeMoneyData();
             _gameManager = FindObjectOfType<GameManager>();
-            coinText.text = _moneyData.TotalMoney.ToString();
-            powerButtonLevelText.text = "Level " + _moneyData.PowerLevel.ToString();
-            powerButtonCoinText.text = _moneyData.PowerMoneyDecrease.ToString();
-            coinButtonLevelText.text = "Level " + _moneyData.GainCoinLevel.ToString();
-            coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();
+            coinText.text = SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney).ToString();
+            powerButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel).ToString();
+            powerButtonCoinText.text = SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease).ToString();
+            coinButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel).ToString();
+            coinButtonCoinText.text = SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease).ToString();
         }
         
 
@@ -105,35 +106,41 @@ namespace Managers
 
         public void BaseCubePowerIncrease()
         {
-            if (_moneyData.TotalMoney - _moneyData.PowerMoneyDecrease < 0)
+            if (SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney) - SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease) < 0)
             {
                 return;
             }
-            _moneyData.BaseCubeValue += 1;
+            //_moneyData.BaseCubeValue += 1;
             BaseCubeSignals.Instance.onBaseCubePowerIncrease?.Invoke();
-            _moneyData.TotalMoney -= _moneyData.PowerMoneyDecrease;
-            _moneyData.PowerMoneyDecrease += _moneyData.PowerMoneyDecrease;
-            _moneyData.PowerLevel += 1;
+            //_moneyData.TotalMoney -= _moneyData.PowerMoneyDecrease;
+           // _moneyData.PowerMoneyDecrease += _moneyData.PowerMoneyDecrease;
+            //_moneyData.PowerLevel += 1;
+           
+            SaveLoadManager.SaveValue("BaseCubeValue",SaveLoadManager.LoadValue("BaseCubeValue",_moneyData.BaseCubeValue) +1);
+            SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney)-SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease));
+            SaveLoadManager.SaveValue("PowerMoneyDecrease",SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease)+SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease));
+            SaveLoadManager.SaveValue("PowerLevel",SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel) +1);
 
-            powerButtonCoinText.text = _moneyData.PowerMoneyDecrease.ToString();
-            powerButtonLevelText.text = "Level " + _moneyData.PowerLevel.ToString();
-            coinText.text = _moneyData.TotalMoney.ToString();
+            powerButtonCoinText.text = SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease).ToString();
+            powerButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel).ToString();
+            coinText.text = SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney).ToString();
         }
 
         public void GainMoneyIncrease()
         {
-            if (_moneyData.TotalMoney - _moneyData.GainCoinDecrease < 0)
+            if (SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney) -  SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease) < 0)
             {
                 return;
             }
-            _moneyData.GainMoney += 1;
-            _moneyData.TotalMoney -= _moneyData.GainCoinDecrease;
-            _moneyData.GainCoinDecrease += _moneyData.GainCoinDecrease;
-            _moneyData.GainCoinLevel += 1;
+            SaveLoadManager.SaveValue("GainMoney",SaveLoadManager.LoadValue("GainMoney",_moneyData.GainMoney) +1);
+            SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney)-20);
+            SaveLoadManager.SaveValue("GainCoinDecrease",SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease) +20);
+            SaveLoadManager.SaveValue("GainCoinLevel",SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel) +1);
 
-            coinButtonCoinText.text = _moneyData.GainCoinDecrease.ToString();
-            coinButtonLevelText.text = "Level " + _moneyData.GainCoinLevel.ToString();
-            coinText.text = _moneyData.TotalMoney.ToString();
+
+            coinButtonCoinText.text = SaveLoadManager.LoadValue("GainCoinDecrease", _moneyData.GainCoinDecrease).ToString();
+            coinButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel).ToString();
+            coinText.text = SaveLoadManager.LoadValue("TotalMoney", _moneyData.TotalMoney).ToString();
         }
         public void RestartButton()
         {
@@ -184,8 +191,9 @@ namespace Managers
         
         private void OnSetCoinText()
         {
-            _moneyData.TotalMoney += _moneyData.GainMoney;
-            coinText.text = _moneyData.TotalMoney.ToString();
+            SaveLoadManager.SaveValue("TotalMoney",
+                SaveLoadManager.LoadValue("GainMoney", _moneyData.GainMoney) + SaveLoadManager.LoadValue("TotalMoney", _moneyData.TotalMoney));
+            coinText.text =  SaveLoadManager.LoadValue("TotalMoney", _moneyData.TotalMoney).ToString();
             
         }
         

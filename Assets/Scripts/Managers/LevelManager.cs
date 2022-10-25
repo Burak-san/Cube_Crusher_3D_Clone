@@ -90,7 +90,7 @@ namespace Managers
         
         private void OnInitializeLevel()
         {
-            var newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
+            var newLevelData = 0;
             _levelLoaderCommand.Execute(newLevelData);
             _levelID += 1;
             UISignals.Instance.onSetLevelText?.Invoke(_levelID);
