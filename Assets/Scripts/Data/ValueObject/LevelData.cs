@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using UnityEngine;
 
 namespace Data.ValueObject
@@ -6,6 +7,7 @@ namespace Data.ValueObject
     [Serializable]
     public class LevelData
     {
-        public GameObject LevelGameObject;
+      //  public GameObject LevelGameObject;
+
     }
 }
