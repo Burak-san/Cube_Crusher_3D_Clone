@@ -11,17 +11,16 @@ namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
+        #region Self Variables
+
         #region Serialized Variables
 
         [SerializeField] private UIPanelController uiPanelController;
-        
         [SerializeField] private TextMeshProUGUI levelText;
         [SerializeField] private TextMeshProUGUI leftText;
         [SerializeField] private TextMeshProUGUI coinText;
-        
         [SerializeField] private TextMeshProUGUI powerButtonLevelText;
         [SerializeField] private TextMeshProUGUI powerButtonCoinText;
-        
         [SerializeField] private TextMeshProUGUI coinButtonLevelText;
         [SerializeField] private TextMeshProUGUI coinButtonCoinText;
 
@@ -34,16 +33,23 @@ namespace Managers
 
         #endregion
         
+        #endregion
+        
         private void Awake()
         {
-            GetDataResources();
+            GetData();
+            SetUI();
         }
 
-        private void GetDataResources()
+        private void GetData()
         {
             _moneyData = GetMoneyData();
             _moneyData.InitializeMoneyData();
             _gameManager = FindObjectOfType<GameManager>();
+        }
+
+        private void SetUI()
+        {
             coinText.text = SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney).ToString();
             powerButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel).ToString();
             powerButtonCoinText.text = SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease).ToString();
@@ -51,7 +57,6 @@ namespace Managers
             coinButtonCoinText.text = SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease).ToString();
         }
         
-
         private MoneyData GetMoneyData() => Resources.Load<CD_Money>("Data/CD_Money").MoneyData;
         
         #region Event Subscriptions
@@ -96,7 +101,6 @@ namespace Managers
         }
         
         #endregion
-        
 
         public void PlayButton()
         {
@@ -110,17 +114,21 @@ namespace Managers
             {
                 return;
             }
-            //_moneyData.BaseCubeValue += 1;
             BaseCubeSignals.Instance.onBaseCubePowerIncrease?.Invoke();
-            //_moneyData.TotalMoney -= _moneyData.PowerMoneyDecrease;
-           // _moneyData.PowerMoneyDecrease += _moneyData.PowerMoneyDecrease;
-            //_moneyData.PowerLevel += 1;
-           
+            BaseCubePowerIncreaseSetData();
+            BaseCubePowerIncreaseSetUI();
+        }
+
+        private void BaseCubePowerIncreaseSetData()
+        {
             SaveLoadManager.SaveValue("BaseCubeValue",SaveLoadManager.LoadValue("BaseCubeValue",_moneyData.BaseCubeValue) +1);
             SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney)-SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease));
             SaveLoadManager.SaveValue("PowerMoneyDecrease",SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease)+SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease));
             SaveLoadManager.SaveValue("PowerLevel",SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel) +1);
+        }
 
+        private void BaseCubePowerIncreaseSetUI()
+        {
             powerButtonCoinText.text = SaveLoadManager.LoadValue("PowerMoneyDecrease",_moneyData.PowerMoneyDecrease).ToString();
             powerButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("PowerLevel",_moneyData.PowerLevel).ToString();
             coinText.text = SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney).ToString();
@@ -132,16 +140,25 @@ namespace Managers
             {
                 return;
             }
+            GainMoneyIncreaseSetData();
+            GainMoneyIncreaseSetUI();
+        }
+
+        private void GainMoneyIncreaseSetData()
+        {
             SaveLoadManager.SaveValue("GainMoney",SaveLoadManager.LoadValue("GainMoney",_moneyData.GainMoney) +1);
             SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney) - _moneyData.GainCoinDecrease);
             SaveLoadManager.SaveValue("GainCoinDecrease",SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease) + _moneyData.GainCoinDecrease);
             SaveLoadManager.SaveValue("GainCoinLevel",SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel) +1);
+        }
 
-
+        private void GainMoneyIncreaseSetUI()
+        {
             coinButtonCoinText.text = SaveLoadManager.LoadValue("GainCoinDecrease", _moneyData.GainCoinDecrease).ToString();
             coinButtonLevelText.text = "Level " + SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel).ToString();
             coinText.text = SaveLoadManager.LoadValue("TotalMoney", _moneyData.TotalMoney).ToString();
         }
+        
         public void RestartButton()
         {
             UISignals.Instance.onClosePanel?.Invoke(UIPanels.FailPanel);

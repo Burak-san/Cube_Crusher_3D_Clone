@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Managers
+﻿namespace Managers
 {
     public class SaveLoadManager
     {

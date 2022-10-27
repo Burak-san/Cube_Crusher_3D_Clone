@@ -3,23 +3,35 @@ using Controllers.Cube;
 using Data.ValueObject;
 using Managers;
 using Signals;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Controllers.Army
 {
     public class ArmyPhysicsController : MonoBehaviour
     {
-        private ArmyManager _armyManager;
-        private MoneyData _moneyData;
+        
+        #region Self Variables
+
+        #region Serialized Variables
+
         [SerializeField] private GameObject colorParticle;
         [SerializeField] private GameObject coinParticle;
+        
+        #endregion
 
+        #region Private Variables
+
+        private ArmyManager _armyManager;
+        private MoneyData _moneyData;
+        
+        #endregion
+
+        #endregion
+        
         private void Awake()
         {
             _armyManager = FindObjectOfType<ArmyManager>();
         }
-
 
         private void OnTriggerEnter(Collider other)
         {

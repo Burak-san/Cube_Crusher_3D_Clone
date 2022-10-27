@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using Controllers;
-using Controllers.Cube;
+﻿using Controllers.Cube;
 using UnityEngine;
-namespace Managers
+namespace Data.ValueObject
 {
-    public class Tile : MonoBehaviour
+    public class TileData : MonoBehaviour
     {
+        
+        #region Public Variables
+        
         public bool IsPlaceable;
         public bool IsEnemyTile;
         public bool IsBaseTile;
         public Vector2Int CellIndex;
-        public Material enemySideMaterial;
-
-
+        public Material EnemySideMaterial;
+        public Vector3 OffSetVector;
         public Cube HeldCube;
         
-        [SerializeField] public Vector3 OffSetVector;
+        #endregion
 
         public void Init(bool isPlaceable,bool isEnemyTile,bool isBaseTile, Vector2Int cellIndex){
             this.IsPlaceable = isPlaceable;

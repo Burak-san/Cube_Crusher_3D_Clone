@@ -1,4 +1,3 @@
-using System;
 using Data.UnityObject;
 using Data.ValueObject;
 using Managers;
@@ -10,11 +9,36 @@ namespace Controllers.Cube
 {
     public class BaseCube : Cube
     {
-        [SerializeField] private TextMeshPro valueText;
+        #region Self Variables
+
+        #region Public Variables
+
         public Vector2Int BaseCubeTilePosition;
         public int CubeValue { get; private set; }
+        
+        #endregion
+
+        #region Serialized Variables
+
+        [SerializeField] private TextMeshPro valueText;
+
+        #endregion
+
+        #region Private Variables
+
         private MoneyData _moneyData;
+
+        #endregion
+
+        #endregion
+
+        
         private void Awake()
+        {
+            GetData();
+        }
+
+        private void GetData()
         {
             _moneyData = GetMoneyData();
             _moneyData.InitializeMoneyData();

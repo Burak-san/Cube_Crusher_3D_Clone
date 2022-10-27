@@ -49,9 +49,9 @@ MonoBehaviour:
   IsEnemyTile: 0
   IsBaseTile: 0
   CellIndex: {x: 0, y: 0}
-  enemySideMaterial: {fileID: 2100000, guid: a1a44e4ea85b71a47bc54920805c7c26, type: 2}
-  HeldCube: {fileID: 0}
+  EnemySideMaterial: {fileID: 2100000, guid: a1a44e4ea85b71a47bc54920805c7c26, type: 2}
   OffSetVector: {x: 0, y: 1, z: 0}
+  HeldCube: {fileID: 0}
 --- !u!65 &8899758507168406981
 BoxCollider:
   m_ObjectHideFlags: 0

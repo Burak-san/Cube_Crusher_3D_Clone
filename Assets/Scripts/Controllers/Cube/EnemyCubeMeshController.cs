@@ -8,12 +8,30 @@ namespace Controllers.Cube
 {
     public class EnemyCubeMeshController : MonoBehaviour
     {
+        #region Self Variables
+
+        #region Serialized Variables
+
         [SerializeField] private List<Material> materialList = new List<Material>();
+
+        #endregion
+
+        #region Private Variables
+
         private Renderer _renderer;
         private float _scale;
         private EnemyCubeManager _enemyCubeManager;
 
+        #endregion
+
+        #endregion
+
         private void Awake()
+        {
+            GetData();
+        }
+
+        private void GetData()
         {
             _renderer = GetComponent<Renderer>();
             _enemyCubeManager = FindObjectOfType<EnemyCubeManager>();

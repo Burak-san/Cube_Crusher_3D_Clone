@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Enums;
 using Managers;
@@ -6,19 +5,37 @@ using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Data.ValueObject;
 
 namespace Controllers.Cube
 {
     public class TetrisBlockSpawner : MonoBehaviour
     {
+        #region Self Variables
+
+        #region Serialized Variables
+
         [SerializeField] private List<TetrisBlockManager> tetrisBlockList;
-        private GridManager _gridManager;
-        private List<TetrisBlockManager> _spawnList = new List<TetrisBlockManager>();
-        [ShowInInspector]private TetrisBlockManager spawningObject;
-        private GameStates _gameStates;
         [SerializeField] private Transform tetrisCubeHolder;
 
+        #endregion
+
+        #region Private Variables
+
+        private GridManager _gridManager;
+        private List<TetrisBlockManager> _spawnList = new List<TetrisBlockManager>();
+        private GameStates _gameStates;
+        [ShowInInspector]private TetrisBlockManager _spawningObject;
+        
+        #endregion
+
+        #endregion
         private void Awake()
+        {
+            GetData();
+        }
+
+        private void GetData()
         {
             _gridManager = FindObjectOfType<GridManager>();
         }
@@ -28,6 +45,8 @@ namespace Controllers.Cube
             DetectSpawnableBlocks();
             RandomSpawnBlock();
         }
+
+        #region Event Subscriptions
 
         private void OnEnable()
         {
@@ -48,6 +67,8 @@ namespace Controllers.Cube
         {
             UnsubscribeEvents();
         }
+
+        #endregion
         
         private void OnChangeGameState(GameStates currentState)
         {
@@ -63,9 +84,22 @@ namespace Controllers.Cube
             }
         }
 
+        private void DetectSpawnableBlocks()
+        {
+            _spawnList.Clear();
+            for (int i = 0; i < tetrisBlockList.Count; i++)
+            {
+                foreach (TileData tile in _gridManager.Nodes)
+                {
+                    if (SpawnCheck(tile.CellIndex,tetrisBlockList[i].cubePositions))
+                    {
+                        _spawnList.Add(tetrisBlockList[i]);
+                        break;
+                    }
+                }
+            }
+        }
         
-
-
         public bool SpawnCheck(Vector2Int checkingTileIndex, CubeTransform[] cubePositions)
         {
             bool control = false;
@@ -80,42 +114,26 @@ namespace Controllers.Cube
                     xIndex >= _gridManager.Nodes.GetLength(0) || 
                     yIndex >= _gridManager.Nodes.GetLength(1)) return false;
                 
-                Tile checkingTile = _gridManager.Nodes[xIndex, yIndex];
+                TileData checkingTileData = _gridManager.Nodes[xIndex, yIndex];
 
-                control = checkingTile.IsPlaceable;
-                if (checkingTile.IsBaseTile) return false;
-                if (checkingTile.IsEnemyTile) return false;
+                control = checkingTileData.IsPlaceable;
+                if (checkingTileData.IsBaseTile) return false;
+                if (checkingTileData.IsEnemyTile) return false;
                 if (control == false) return false;
             }
             
             return true;
         }
-
-        private void DetectSpawnableBlocks()
-        {
-            _spawnList.Clear();
-            for (int i = 0; i < tetrisBlockList.Count; i++)
-            {
-                foreach (Tile tile in _gridManager.Nodes)
-                {
-                    if (SpawnCheck(tile.CellIndex,tetrisBlockList[i].cubePositions))
-                    {
-                        _spawnList.Add(tetrisBlockList[i]);
-                        break;
-                    }
-                }
-            }
-        }
-
+        
         private void RandomSpawnBlock()
         {
             if (_gameStates == GameStates.GameStop)
             {
                 return;
             }
-            spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]); 
-            spawningObject.transform.position = transform.position;
-            spawningObject.transform.SetParent(tetrisCubeHolder);
+            _spawningObject = Instantiate(_spawnList[Random.Range(0, _spawnList.Count)]); 
+            _spawningObject.transform.position = transform.position;
+            _spawningObject.transform.SetParent(tetrisCubeHolder);
         }
     }
 }

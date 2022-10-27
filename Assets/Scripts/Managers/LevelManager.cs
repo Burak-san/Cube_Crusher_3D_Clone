@@ -1,5 +1,4 @@
-﻿using System;
-using Commands.Level;
+﻿using Commands.Level;
 using Data.UnityObject;
 using Data.ValueObject;
 using Signals;
@@ -39,6 +38,15 @@ namespace Managers
         private void Awake()
         {
             GetData();
+            
+        }
+        
+        private void GetData()
+        {
+            LevelData = GetLevelData();
+            LevelData.InıtializeLevelID();
+            LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
+            UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
             _clearActiveLevelCommand = new ClearActiveLevelCommand(ref levelHolder);
             _levelLoaderCommand = new LevelLoaderCommand(ref levelHolder);
         }
@@ -47,15 +55,16 @@ namespace Managers
         {
             InitializeLevel();
         }
-
-        private void GetData()
+        
+        private void InitializeLevel()
         {
-            LevelData = GetLevelData();
-            LevelData.InıtializeLevelID();
+            var newLevelData = 0;
+            _levelLoaderCommand.Execute(newLevelData);
+            SaveLoadManager.SaveValue("LevelIDCount",SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount));
             LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
             UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
         }
-
+        
         private LevelData GetLevelData()
         {
             int newLevelData = _levelID % Resources.Load<CD_Level>("Data/CD_Level").Levels.Count;
@@ -100,17 +109,7 @@ namespace Managers
             LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
             UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
         }
-        private void InitializeLevel()
-        {
-            var newLevelData = 0;
-            _levelLoaderCommand.Execute(newLevelData);
-            SaveLoadManager.SaveValue("LevelIDCount",SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount));
-            LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
-            UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
-        }
         
-        
-
         private void OnClearActiveLevel()
         {
             _clearActiveLevelCommand.Execute();

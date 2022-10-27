@@ -16,6 +16,7 @@ namespace Data.ValueObject
         
         public int GainCoinLevel ;
         public int GainCoinDecrease ;
+        
         public void InitializeMoneyData()
         {
             TotalMoney = SaveLoadManager.LoadValue("TotalMoney", 500);
@@ -26,9 +27,5 @@ namespace Data.ValueObject
             GainCoinLevel = SaveLoadManager.LoadValue("GainCoinLevel", 1);
             GainCoinDecrease = SaveLoadManager.LoadValue("GainCoinDecrease", 100);
         }
-        
-        
     }
-    
-    
 }

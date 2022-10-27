@@ -1,8 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Cinemachine;
 using Enums;
-using Extentions;
 using Signals;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,20 +9,32 @@ namespace Managers
 {
     public class CameraManager : MonoBehaviour
     {
+        #region Self Variables
+
+        #region Public Variables
+
         public CinemachineStateDrivenCamera StateCam;
+        
+        #endregion
+
+        #region Private Variables
 
         [ShowInInspector] private Vector3 _initialPosition;
+
         private Animator _animator;
         private CameraStatesType _cameraStatesType;
+        
+        #endregion
+
+        #endregion
 
         private void Awake()
         {
-            GetReferences();
-            
+            GetData();
             GetInitialPosition();
         }
 
-        private void GetReferences()
+        private void GetData()
         {
             _animator = GetComponent<Animator>();
             _cameraStatesType = CameraStatesType.GameOpen;
@@ -35,7 +45,7 @@ namespace Managers
             _initialPosition = transform.localPosition;
         }
 
-        #region EventSubscription
+        #region Event Subscription
 
         private void OnEnable()
         {

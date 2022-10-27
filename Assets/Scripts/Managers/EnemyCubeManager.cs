@@ -11,28 +11,36 @@ namespace Managers
 {
     public class EnemyCubeManager : MonoBehaviour
     {
+        #region Self Variables
+
+        #region Serialized Variables
+
         [SerializeField] private List<EnemyCube> enemyCubeList = new List<EnemyCube>();
         [SerializeField] private Transform enemyCubeHolder;
+
+        #endregion
+
+        #region Private Variables
 
         private EnemyData _data;
         private GridManager _gridManager;
         private ObjectPooler _objectPooler;
         private int _leftCubeIncrease;
-        
+
+        #endregion
+
+        #endregion
         private void Awake()
         {
-            GetDataResources();
+            GetData();
         }
 
-        private void GetDataResources()
+        private void GetData()
         {
             _objectPooler = FindObjectOfType<ObjectPooler>();
             _gridManager = FindObjectOfType<GridManager>();
-            
             _leftCubeIncrease = 5;
-            
             _data = GetEnemyData();
-            
             _data.SpawnCubeCount = _data.LeftCubeCount;
         }
         
@@ -44,6 +52,7 @@ namespace Managers
         
         private EnemyData GetEnemyData() => Resources.Load<CD_Enemy>("Data/CD_Enemy").EnemyData;
 
+        #region Event Subscriptions
 
         private void OnEnable()
         {
@@ -68,7 +77,8 @@ namespace Managers
             UnSubscribeEvents();
         }
 
-
+        #endregion
+        
         private void OnChangeGameState(GameStates currentState)
         {
             if (currentState == GameStates.EnemyMovePhase)

@@ -1,50 +1,73 @@
 using System.Collections.Generic;
 using Controllers.Cube;
 using UnityEngine;
+using Data.ValueObject;
 
 namespace Managers
 {
     public class GridManager : MonoBehaviour
     {
-        public Tile[,] Nodes;
+        #region Self Variables
+
+        #region Public Variables
+
+        public TileData[,] Nodes;
         public List<BaseCube> BaseCubeList;
         
+        #endregion
+
+        #region Serialized Variables
+
         [SerializeField]private int height;
         [SerializeField]private int width;
         [SerializeField]private Transform cellHolder;
-        [SerializeField]private Tile gridCellPrefab;
+        [SerializeField]private TileData gridCellPrefab;
         [SerializeField]private BaseCube baseCubePrefab;
-        
+
+        #endregion
+
+        #region Private Variables
+
         private ObjectPooler _objectPooler;
+
+        #endregion
+
+        #endregion
         private void Awake()
         {
-            _objectPooler = FindObjectOfType<ObjectPooler>();
+            GetData();
             CreateGrid();
             BaseCubeSpawn();
         }
+
+        private void GetData()
+        {
+            _objectPooler = FindObjectOfType<ObjectPooler>();
+        }
+        
         private void CreateGrid()
         {
-            Nodes = new Tile[width, height];
+            Nodes = new TileData[width, height];
             for (int z = 0; z < height; z++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     Vector3 worldPosition = new Vector3(x, 0, z);
                     
-                    Tile newTile = Instantiate(gridCellPrefab, worldPosition, Quaternion.identity);
-                    newTile.name =  $"Cell {z} {x}";
-                    newTile.transform.SetParent(cellHolder);
+                    TileData newTileData = Instantiate(gridCellPrefab, worldPosition, Quaternion.identity);
+                    newTileData.name =  $"Cell {z} {x}";
+                    newTileData.transform.SetParent(cellHolder);
                     if (z > 4)
                     {
-                        newTile.Init(false,true,false, new Vector2Int(x,z));
-                        newTile.GetComponentInChildren<Renderer>().material.color = newTile.enemySideMaterial.color;
+                        newTileData.Init(false,true,false, new Vector2Int(x,z));
+                        newTileData.GetComponentInChildren<Renderer>().material.color = newTileData.EnemySideMaterial.color;
                     }
                     else
                     {
-                        newTile.Init(true,false,false, new Vector2Int(x,z));
+                        newTileData.Init(true,false,false, new Vector2Int(x,z));
                     }
                     
-                    Nodes[x, z] = newTile;
+                    Nodes[x, z] = newTileData;
                 }
             }
         }

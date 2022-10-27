@@ -1,23 +1,31 @@
-using System;
 using Enums;
-using Managers;
 using Signals;
-using UnityEditor;
 using UnityEngine;
+using Data.ValueObject;
 
 namespace Managers
 {
     public class CubePlaceManager : MonoBehaviour
     {
+        #region Self Variables
+
+        #region Serialized Variables
+
         [SerializeField] private LayerMask tetrisLayer;
         [SerializeField] private LayerMask tileLayer;
-        
-        private Tile pickedTile;
-        
+
+        #endregion
+
+        #region Private Variables
+
+        private TileData _pickedTileData;
         private TetrisBlockManager _selectedObject;
         private Vector3 pickedPosition;
-        
         private Camera mainCam;
+
+        #endregion
+
+        #endregion
 
         private void Awake()
         {
@@ -63,7 +71,7 @@ namespace Managers
         {
             if (Physics.Raycast(ray, out RaycastHit hitInfo, mainCam.farClipPlane, tileLayer))
             {
-                if (hitInfo.collider.TryGetComponent(out Tile tile))
+                if (hitInfo.collider.TryGetComponent(out TileData tile))
                 {
                     if (!tile.IsPlaceable)
                     {

@@ -8,11 +8,20 @@ namespace Controllers.Cube
 {
     public class EnemyCubeMovementController : MonoBehaviour
     {
+        #region Private Variables
+
         private GridManager _gridManager;
         private TetrisBlockManager _tetrisBlockManager;
         private EnemyCube _enemyCube;
+
+        #endregion
         
         private void Awake()
+        {
+            GetData();
+        }
+
+        private void GetData()
         {
             _gridManager = FindObjectOfType<GridManager>();
             _enemyCube = GetComponent<EnemyCube>();
