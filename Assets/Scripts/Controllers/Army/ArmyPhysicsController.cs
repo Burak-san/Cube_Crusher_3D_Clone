@@ -3,6 +3,7 @@ using Controllers.Cube;
 using Data.ValueObject;
 using Managers;
 using Signals;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace Controllers.Army
@@ -11,7 +12,9 @@ namespace Controllers.Army
     {
         private ArmyManager _armyManager;
         private MoneyData _moneyData;
-        
+        [SerializeField] private GameObject colorParticle;
+        [SerializeField] private GameObject coinParticle;
+
         private void Awake()
         {
             _armyManager = FindObjectOfType<ArmyManager>();
@@ -22,22 +25,27 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
-                ParticleSignals.Instance.onHitEnemyCube.Invoke(transform.position);
+              //  GameObject ColorParticle =
+               Instantiate(colorParticle, transform.position + new Vector3(0, 0, -0.25f),
+                    Quaternion.identity);
+                //ColorParticle.transform.SetParent(transform);
                 EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
-                
             }
-            
+
 
             if (other.CompareTag("EnemyBase"))
             {
-                ParticleSignals.Instance.onHitEnemyBaseCube.Invoke(transform.position);
+              //  GameObject CoinParticle = 
+                    Instantiate(coinParticle, transform.position + new Vector3(0, 0, -0.25f),
+                    Quaternion.identity);
+              //  CoinParticle.transform.SetParent(transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
                 UISignals.Instance.onSetCoinText?.Invoke();
             }
-            
+
             if (other.TryGetComponent(out IncrementCubes ıncrementCubes))
             {
                 StartCoroutine(_armyManager.SpawnArmyInIncrementCube(ıncrementCubes));
@@ -53,7 +61,6 @@ namespace Controllers.Army
             {
                 collider.enabled = true;
             }
-            
         }
     }
 }

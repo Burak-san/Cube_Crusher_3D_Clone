@@ -232,13 +232,13 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _AlbedoColor: {r: 0, g: 0.5188679, b: 0.0061769756, a: 1}
+    - _AlbedoColor: {r: 0.30055177, g: 0.5188679, b: 0.3038596, a: 1}
     - _BaseColor: {r: 0, g: 0.6603774, b: 0.0063805087, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GoochBrightColor: {r: 0.13506015, g: 0.6415094, b: 0, a: 1}
-    - _GoochDarkColor: {r: 0, g: 0.3018868, b: 0.023309384, a: 1}
+    - _GoochBrightColor: {r: 0.15059829, g: 0.7264151, b: 0, a: 1}
+    - _GoochDarkColor: {r: 0, g: 0.8773585, b: 0.06836562, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _RimBrightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}

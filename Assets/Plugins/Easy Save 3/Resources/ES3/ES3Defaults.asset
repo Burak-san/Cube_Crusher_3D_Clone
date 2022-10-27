@@ -37,6 +37,8 @@ MonoBehaviour:
     - CFXRRuntime
     - Hierarchy2.Runtime
     - KinoBloom.Runtime
+    - sc.stylizedwater2.editor
+    - sc.stylizedwater2.runtime
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - CFXREditor
     - Hierarchy2.Editor
