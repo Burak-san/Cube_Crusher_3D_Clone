@@ -1,6 +1,7 @@
 using System;
 using Data.UnityObject;
 using Data.ValueObject;
+using Managers;
 using Signals;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace Controllers.Cube
         private void Awake()
         {
             _moneyData = GetMoneyData();
+            _moneyData.InitializeMoneyData();
+            _moneyData.BaseCubeValue = SaveLoadManager.LoadValue("BaseCubeValue", _moneyData.BaseCubeValue);
             CubeValue = _moneyData.BaseCubeValue;
             valueText.text = CubeValue.ToString();
         }

@@ -133,8 +133,8 @@ namespace Managers
                 return;
             }
             SaveLoadManager.SaveValue("GainMoney",SaveLoadManager.LoadValue("GainMoney",_moneyData.GainMoney) +1);
-            SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney)-20);
-            SaveLoadManager.SaveValue("GainCoinDecrease",SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease) +20);
+            SaveLoadManager.SaveValue("TotalMoney",SaveLoadManager.LoadValue("TotalMoney",_moneyData.TotalMoney) - _moneyData.GainCoinDecrease);
+            SaveLoadManager.SaveValue("GainCoinDecrease",SaveLoadManager.LoadValue("GainCoinDecrease",_moneyData.GainCoinDecrease) + _moneyData.GainCoinDecrease);
             SaveLoadManager.SaveValue("GainCoinLevel",SaveLoadManager.LoadValue("GainCoinLevel",_moneyData.GainCoinLevel) +1);
 
 
