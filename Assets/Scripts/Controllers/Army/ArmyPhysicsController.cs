@@ -25,10 +25,11 @@ namespace Controllers.Army
         {
             if (other.CompareTag("EnemyCube"))
             {
-              //  GameObject ColorParticle =
-               Instantiate(colorParticle, transform.position + new Vector3(0, 0, -0.25f),
+             
+            GameObject ColorParticle =   
+                Instantiate(colorParticle, transform.position + new Vector3(0, 0, -0.25f),
                     Quaternion.identity);
-                //ColorParticle.transform.SetParent(transform);
+                ColorParticle.transform.SetParent(other.transform);
                 EnemyCubeSignals.Instance.onHitEnemyCube?.Invoke(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
@@ -37,10 +38,10 @@ namespace Controllers.Army
 
             if (other.CompareTag("EnemyBase"))
             {
-              //  GameObject CoinParticle = 
-                    Instantiate(coinParticle, transform.position + new Vector3(0, 0, -0.25f),
+                GameObject CoinParticle = 
+                    Instantiate(coinParticle, transform.position + new Vector3(0, .5f, -0.25f),
                     Quaternion.identity);
-              //  CoinParticle.transform.SetParent(transform);
+                CoinParticle.transform.SetParent(other.transform);
                 _armyManager.ReturnToPoolArmy(gameObject);
                 _armyManager.ArmyCheck();
                 UISignals.Instance.onSetCoinText?.Invoke();

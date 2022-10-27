@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorParticle: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
-  coinParticle: {fileID: 4850402928120719303, guid: 5963cc947859d924bb55bfe7504f15de, type: 3}
+  coinParticle: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
 --- !u!1 &4130747774410414778
 GameObject:
   m_ObjectHideFlags: 0
