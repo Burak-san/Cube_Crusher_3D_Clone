@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CD_Level
   m_EditorClassIdentifier: 
   Levels:
-  - LevelGameObject: {fileID: 0}
+  - LevelIDCount: 1

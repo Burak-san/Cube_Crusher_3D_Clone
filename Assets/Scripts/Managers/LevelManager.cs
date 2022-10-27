@@ -14,7 +14,7 @@ namespace Managers
 
         #region Public Variables
 
-        [Header("Data")] public LevelData Data;
+        [Header("Data")] public LevelData LevelData;
 
         #endregion
 
@@ -28,6 +28,7 @@ namespace Managers
         #region Private Variables
 
         [ShowInInspector] private int _levelID;
+        
         private LevelLoaderCommand _levelLoaderCommand;
         private ClearActiveLevelCommand _clearActiveLevelCommand;
         
@@ -44,12 +45,15 @@ namespace Managers
         
         private void Start()
         {
-            OnInitializeLevel();
+            InitializeLevel();
         }
 
         private void GetData()
         {
-            Data = GetLevelData();
+            LevelData = GetLevelData();
+            LevelData.InıtializeLevelID();
+            LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
+            UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
         }
 
         private LevelData GetLevelData()
@@ -92,9 +96,20 @@ namespace Managers
         {
             var newLevelData = 0;
             _levelLoaderCommand.Execute(newLevelData);
-            _levelID += 1;
-            UISignals.Instance.onSetLevelText?.Invoke(_levelID);
+            SaveLoadManager.SaveValue("LevelIDCount",SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount)+1);
+            LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
+            UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
         }
+        private void InitializeLevel()
+        {
+            var newLevelData = 0;
+            _levelLoaderCommand.Execute(newLevelData);
+            SaveLoadManager.SaveValue("LevelIDCount",SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount));
+            LevelData.LevelIDCount = SaveLoadManager.LoadValue("LevelIDCount",LevelData.LevelIDCount);
+            UISignals.Instance.onSetLevelText?.Invoke(LevelData.LevelIDCount);
+        }
+        
+        
 
         private void OnClearActiveLevel()
         {
@@ -103,12 +118,11 @@ namespace Managers
 
         private int OnGetLevel()
         {
-            return _levelID;
+            return LevelData.LevelIDCount;
         }
 
         private void OnNextLevel()
         {
-            _levelID += 1;
             LevelSignals.Instance.onClearActiveLevel?.Invoke();
             LevelSignals.Instance.onLevelInitialize?.Invoke();
             CoreGameSignals.Instance.onReset?.Invoke();
