@@ -3,14 +3,13 @@ Cube-Crusher-3D-Clone
 
 ![lastcubecrushervideo_AdobeExpress](https://user-images.githubusercontent.com/60696929/198413423-ea507e42-c1a7-4264-b47b-df7ece84a76a.gif)
 
-
 ## Indroduce
-*Hi:punch:,I'm from Turkey,and I do game development.*
+*Hi:punch:,I'm from Turkey,and i am developing game.*
 *We developed this game with my teammate for the last game for Levelup Academy. Detailed information about the game is given below. Have a nice day*
 
-***Burak Orhan*** :fast_forward: [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40' color='#6e5494'>](https://github.com/Burak-san)  [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg' alt='linkedin' height='40'>](https://www.linkedin.com/in/burak-orhan-aohg2022//) :rewind:
+***Burak Orhan*** [<img src='https://user-images.githubusercontent.com/60696929/204922740-1a98d2f0-985b-4b43-be92-f8317e24bab4.png' alt='github' height='40' color='#6e5494'>](https://github.com/Burak-san)  [<img src='https://user-images.githubusercontent.com/60696929/204922759-d21ff92f-f122-4d94-ab68-c4e4c8e7301a.png' alt='linkedin' height='40'>](https://www.linkedin.com/in/burak-orhan-aohg2022//)
 
-***Ali Şenesen*** :fast_forward: [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg' alt='github' height='40' color='#bd2c00'>](https://github.com/AliSenesen)  [<img src='https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg' alt='linkedin' height='40'>](https://www.linkedin.com/in/ali-%C5%9Fenesen-407491228/) :rewind:
+***Ali Şenesen*** [<img src='https://user-images.githubusercontent.com/60696929/204922740-1a98d2f0-985b-4b43-be92-f8317e24bab4.png' alt='github' height='40' color='#bd2c00'>](https://github.com/AliSenesen)  [<img src='https://user-images.githubusercontent.com/60696929/204922759-d21ff92f-f122-4d94-ab68-c4e4c8e7301a.png' alt='linkedin' height='40'>](https://www.linkedin.com/in/ali-%C5%9Fenesen-407491228/)
 
 
 ![CubeCrusher](https://user-images.githubusercontent.com/60696929/198413813-e845d304-037d-4882-8fd9-76bf172aa884.png)
