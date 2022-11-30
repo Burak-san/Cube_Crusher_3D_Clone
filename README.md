@@ -2,7 +2,7 @@
 Cube-Crusher-3D-Clone
 
 
-## GIF
+## Gameplay GIF
 ![lastcubecrushervideo_AdobeExpress](https://user-images.githubusercontent.com/60696929/198413423-ea507e42-c1a7-4264-b47b-df7ece84a76a.gif)
 
 ## Indroduce
