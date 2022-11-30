@@ -1,11 +1,13 @@
 # Cube-Crusher-3D
 Cube-Crusher-3D-Clone
 
+
+## GIF
 ![lastcubecrushervideo_AdobeExpress](https://user-images.githubusercontent.com/60696929/198413423-ea507e42-c1a7-4264-b47b-df7ece84a76a.gif)
 
 ## Indroduce
 *Hi:punch:,I'm from Turkey,and i am developing game.*
-*We developed this game with my teammate for the last game for Levelup Academy. Detailed information about the game is given below. Have a nice day*
+*We developed this game with my teammate for the last game for Levelup Academy. Detailed information about the game is given below. Have a nice day.*
 
 ***Burak Orhan*** [<img src='https://user-images.githubusercontent.com/60696929/204922740-1a98d2f0-985b-4b43-be92-f8317e24bab4.png' alt='github' height='40' color='#6e5494'>](https://github.com/Burak-san)  [<img src='https://user-images.githubusercontent.com/60696929/204922759-d21ff92f-f122-4d94-ab68-c4e4c8e7301a.png' alt='linkedin' height='40'>](https://www.linkedin.com/in/burak-orhan-aohg2022//)
 
